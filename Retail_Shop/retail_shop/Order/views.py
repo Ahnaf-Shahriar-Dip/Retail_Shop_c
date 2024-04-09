@@ -64,6 +64,7 @@ def cart_logic(request):
 
                 product.product_quantity -= quantity
                 product.save()
+                order.save()
 
                 #print("Order object created:", order)  # Debugging statement
 
