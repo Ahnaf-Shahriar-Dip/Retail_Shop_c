@@ -66,6 +66,8 @@ def cart_logic(request):
                 product.save()
                 order.save()
 
+                #Null Isuue sometimes when storing sum of profit in invoice table 
+
                 #print("Order object created:", order)  # Debugging statement
 
                  # Aggregate profit for orders with the same invoice ID
