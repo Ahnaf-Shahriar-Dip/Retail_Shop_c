@@ -1,0 +1,665 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'dash_boar.css' %}"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #07202d; /* Light background color */
+            color: #000; /* Main text color */
+            margin: 0;
+            padding: 10px;
+        }
+
+        #below1 {
+            padding: 20px;
+            background-color: #8a9b99;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        #below2 {
+            padding: 20px;
+            background-color: #8a9b99;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        #welcome_p_size {
+            font-size: 24px; /* Increased font size */
+            font-weight: bold;
+            margin-bottom: 10px; /* Spacing below the welcome message */
+        }
+
+        .bar-container {
+            display: flex;
+            justify-content: space-between; /* Align items to the start and end */
+        }
+
+
+        .bar-container2 {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+
+.bar-container3_icon {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+        .bar-inside1 {
+            padding: 25px;
+            background-color: #ffbf00; /* Vibrant yellow for the bar */
+            border-radius: 5px; /* Rounded corners */
+            width: 68%; /* Adjust width as needed */
+        }
+
+        .bar-inside2 {
+            padding: 25px;
+            background-color: #ffffff; /* Vibrant yellow for the bar */
+            border-radius: 5px; /* Rounded corners */
+            width: 30%; /* Adjust width as needed */
+        }
+
+        .bar-inside3 {
+            padding: 5px;
+            background-color: #00000080; /* Vibrant yellow for the bar */
+            border-radius: 5px; /* Rounded corners */
+            width: 30%; /* Adjust width as needed */
+            margin: 10px;
+            height: 113px;
+            box-shadow: 0 0 5px rgb(255, 30, 0);
+            width: 400px;
+        }
+        .bar-inside4 {
+            padding: 5px;
+            background-color: #82b59e;/* Vibrant yellow for the bar */
+            border-radius: 5px; /* Rounded corners */
+            width: 30%; /* Adjust width as needed */
+            margin: 10px;
+            height: 113px;
+            box-shadow: 0 0 5px rgb(255, 30, 0);
+            width: 400px;
+
+        }
+        .bar-inside5 {
+            padding: 5px;
+            background-color: #00c4ff82; /* Vibrant yellow for the bar */
+            border-radius: 5px; /* Rounded corners */
+            width: 30%; /* Adjust width as needed */
+            margin: 10px;
+            height: 113px;
+            box-shadow: 0 0 5px rgb(255, 30, 0);
+            width: 400px;
+
+        }
+        .bar-inside6 {
+            padding: 5px;
+            background-color: #9790b5; /* Vibrant yellow for the bar */
+            border-radius: 5px; /* Rounded corners */
+            width: 30%; /* Adjust width as needed */
+            margin: 10px;
+            height: 113px;
+            box-shadow: 0 0 5px rgb(255, 30, 0);
+            width: 400px;
+        }
+
+        .bar-inside7 {
+            padding: 5px;
+            background-color: #ccff0042;
+            border-radius: 5px; /* Rounded corners */
+            width: 30%;  
+            height: 113px;
+            margin: 10px;
+            box-shadow: 0 0 5px rgb(255, 30, 0);
+            width: 400px;
+        }
+
+        #today_month_year
+        {
+            font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    font-family: monospace;
+        }
+
+
+
+
+        .section_home_page_1 {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffe6cc; /* Light orange background for sections */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            height: 291px;
+        }
+
+        h2 {
+            color: #ff6666; /* Red heading color */
+        }
+
+        p {
+            line-height: 1.5; /* Improved readability with increased line height */
+        }
+
+
+        #inside_smallsection_text{
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.83);
+
+
+        }
+
+
+
+        .material-icons1 {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 44px;
+    line-height: 0.5;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    color: #000000;
+    
+    -webkit-font-smoothing: antialiased;
+}
+
+
+#input_field_date{
+    width: 300px;
+    margin-left: 15px;/* Spacing between icon and input field */
+    padding: 10px; /* Padding for input field */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #eeede7; /* Light background color */
+    box-shadow: 0 0 5px rgb(255, 2, 2);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    font-size: 20px;
+    font-weight: bold;
+    color: #0047fc;
+    box-shadow: 0 0 5px rgb(0, 23, 123);
+
+}
+
+
+#input_field1 {
+    width: 300px;
+    margin-left: 15px;/* Spacing between icon and input field */
+    padding: 10px; /* Padding for input field */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #ece3ad; /* Light background color */
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#input_field2 {
+    width: 300px;
+    margin-left: 15px;/* Spacing between icon and input field */
+    padding: 10px; /* Padding for input field */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #b400ff57; 
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#input_field3 {
+    width: 300px;
+    margin-left: 15px;/* Spacing between icon and input field */
+    padding: 10px; /* Padding for input field */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #638b7e; /* Light background color */
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    font-size: 20px;
+    font-weight: bold;
+}
+#input_field4 {
+    width: 300px;
+    margin-left: 15px;/* Spacing between icon and input field */
+    padding: 10px; /* Padding for input field */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #99574b;
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    font-size: 20px;
+    font-weight: bold;
+}
+#input_field5 {
+    width: 300px;
+    margin-left: 15px;/* Spacing between icon and input field */
+    padding: 10px; /* Padding for input field */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #79e272;
+    box-shadow: 0 0 5px rgb(0, 0, 0);
+    transition: background-color 0.3s ease; /* Smooth transition effect */
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#input_field1:focus {
+    outline: none; /* Remove outline on focus */
+    background-color: #c5de0f32; /* Change background color on focus */
+}
+#input_field2:focus {
+    outline: none; /* Remove outline on focus */
+    background-color: #ff000032; /* Change background color on focus */
+}
+#input_field3:focus {
+    outline: none; /* Remove outline on focus */
+    background-color: #ff000032; /* Change background color on focus */
+}
+#input_field4:focus {
+    outline: none; /* Remove outline on focus */
+    background-color: #ff000032; /* Change background color on focus */
+}
+#input_field5:focus {
+    outline: none; /* Remove outline on focus */
+    background-color: #7300ff32; /* Change background color on focus */
+}
+
+.material-icons {
+    font-size: 24px; /* Adjust icon size */
+    color: #4CAF50; /* Icon color */
+    margin-right: 5px; /* Spacing between icon and input field */
+}
+
+#inside_smallsection_text {
+    margin: 0; /* Remove margin for consistency */
+    color: #000000;
+    padding: 3px;
+}
+
+
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 20,
+        'wght' 900,
+        'GRAD' 20,
+        'opsz' 100;
+    font-size: 44px; /* Adjust the font size as needed */
+
+    
+    width: 65px;
+    height: 82px;
+    margin-top: -15px;
+    
+}
+
+
+
+
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation ease-in 1 forwards;
+    animation-duration: 10s;
+}
+
+@keyframes fadeInAnimation {
+    50% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Add hover animation */
+#below1 {
+    transition: transform 0.9s ease; /* Smooth transition effect for transform */
+}
+
+#below1:hover {
+    transform: scale(0.9); /* Scale the div */
+    background-color: #9f5d5d; /* Change background color on hover */
+}
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    
+
+
+    <div id="below1">
+
+        {% if request.user.is_superuser %}
+        <p id="welcome_p_size">Welcome Ahnaf Shahrar Dip,</p>
+        
+
+        <div class="bar-container">
+            <div class="bar-inside1">
+                <p id="today_month_year">Sells Of the Day</p>
+            </div>
+            <div class="bar-inside2">
+                <p id="additional_texte">
+                    <input type="text" id="input_field_date" value="{{ today_date }}"   readonly>
+
+
+                </p>
+            </div>
+        </div>
+
+        <!-- First Section -->
+
+        
+
+        <section class="section_home_page_1">
+
+
+            <div class="bar-container2">
+                <div class="bar-inside3">
+                    
+
+                    <p id="inside_smallsection_text">SELLS</p>
+
+                    <div class="bar-container3_icon">
+                        <img class="material-symbols-outlined" src="{% static 'sells.png' %}" alt="Shopping Cart Image">
+
+                    
+                    <input type="text" id="input_field1" value="${{ Sells_sum_today }}" readonly>
+                    </div>
+
+
+
+                </div>
+                <div class="bar-inside4">
+
+                    
+                    <p id="inside_smallsection_text">Profit</p>
+                    <div class="bar-container3_icon">
+                        <img class="material-symbols-outlined" src="{% static 'lifetime.png' %}" alt="Shopping Cart Image">
+                        <input type="text" id="input_field2" value="${{ profit_sum_today }}" readonly>
+
+                    </div>
+                    
+
+
+                </div> 
+
+
+                <div class="bar-inside5">
+
+                    <p id="inside_smallsection_text">Expense</p>
+                    <div class="bar-container3_icon">
+                        <img class="material-symbols-outlined" src="{% static 'expansr.png' %}" alt="Shopping Cart Image">
+                        <input type="text" id="input_field3" value="${{ expense_sum_today }}"  readonly>  
+
+                    </div>
+
+                </div>
+
+
+                <div class="bar-inside6">
+
+                    <p id="inside_smallsection_text">Due</p>
+                    <div class="bar-container3_icon">
+                        <img class="material-symbols-outlined" src="{% static 'sad.png' %}" alt="Shopping Cart Image">
+                        <input type="text" id="input_field4" value="${{ due_sum_today }}" readonly>
+
+                    </div>
+                   
+                </div>
+                <div class="bar-inside7">
+                    
+                    
+                    <p id="inside_smallsection_text">NET Earning (S - D - E) + P</p>
+                    <div class="bar-container3_icon">
+                        <img class="material-symbols-outlined" src="{% static 'net_earning.png' %}" alt="Shopping Cart Image">
+                        <input type="text" id="input_field5" value="${{  net_earning_today }}" readonly>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        </section>
+        {% else %}
+        <!-- Message for non-superusers -->
+        <p style="color: rgb(255, 255, 255);">You are not authorized to view this section Because You are not an Admin.</p>
+        {% endif %}
+        
+       
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+<!-- 2nd part from here-->
+
+    
+<div id="below2">
+
+    {% if request.user.is_superuser %}
+    <p id="welcome_p_size">Welcome Ahnaf Shahrar Dip,</p>
+
+    <div class="bar-container">
+        <div class="bar-inside1">
+            <p id="today_month_year">Sells Of Life Time</p>
+        </div>
+        <div class="bar-inside2">
+            <p id="additional_text_e">
+            <input type="text" id="input_field_date" value="{{ oldest_date|date:'F j' }} to {{ latest_date|date:'F j (Y)' }}" readonly>
+        </p>
+        </div>
+    </div>
+
+    <!-- First Section -->
+    <section class="section_home_page_1">
+
+
+        <div class="bar-container2">
+            <div class="bar-inside3">
+                
+
+                <p id="inside_smallsection_text">SELLS</p>
+
+                <div class="bar-container3_icon">
+                    <img class="material-symbols-outlined" src="{% static 'sells.png' %}" alt="Shopping Cart Image">
+
+                
+                    <input type="text" id="input_field1" value="${{ Sells_sum_lifetime }}" readonly>
+                </div>
+
+                
+
+            </div>
+            <div class="bar-inside4">
+
+                
+                <p id="inside_smallsection_text">Profit</p>
+                <div class="bar-container3_icon">
+                    <img class="material-symbols-outlined" src="{% static 'lifetime.png' %}" alt="Shopping Cart Image">
+                    
+                    <input type="text" id="input_field2" value="${{ profit_sum_lifetime }}" readonly>
+
+                </div>
+                
+
+
+            </div> 
+
+
+            <div class="bar-inside5">
+
+                <p id="inside_smallsection_text">Expense</p>
+                <div class="bar-container3_icon">
+                    <img class="material-symbols-outlined" src="{% static 'expansr.png' %}" alt="Shopping Cart Image">
+                    <input type="text" id="input_field3" value="${{ expense_sum_lifetime }}" readonly>
+
+                    
+
+                </div>
+
+            </div>
+
+
+            <div class="bar-inside6">
+
+                <p id="inside_smallsection_text">Due</p>
+                <div class="bar-container3_icon">
+                    <img class="material-symbols-outlined" src="{% static 'sad.png' %}" alt="Shopping Cart Image">
+                    
+                    <input type="text" id="input_field4" value="${{ due_sum_lifetime }}" readonly>
+                    
+                   
+                </div>
+
+            </div>
+            <div class="bar-inside7">
+                
+                <p id="inside_smallsection_text">NET Earning (S - D - E) + P</p>
+                <div class="bar-container3_icon">
+                    <img class="material-symbols-outlined" src="{% static 'net_earning.png' %}" alt="Shopping Cart Image">
+                    <input type="text" id="input_field5" value="${{  net_earning_lifetime }}" readonly>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </section>
+
+
+    {% else %}
+    <!-- Message for non-superusers -->
+    <p style="color: rgb(255, 255, 255);">You are not authorized to view this section Because You are not an Admin.</p>
+    {% endif %}
+
+</div>
+
+
+
+
+
+
+
+    <script>
+  // JavaScript code here to add smooth scrolling effect
+document.getElementById('below1').addEventListener('mouseenter', function() {
+    // Apply animation or any other effect
+    this.style.transition = 'transform 0.9s ease'; // Reapply smooth transition
+    this.style.backgroundColor = '#9f5d5d'; // Change background color on hover
+    this.style.transform = 'scale(0.9)'; // Scale the div
+});
+
+document.getElementById('below1').addEventListener('mouseleave', function() {
+    // Revert back to original state
+    this.style.transform = 'scale(1)'; // Revert back to original scale
+    this.style.backgroundColor = ''; // Reset background color
+});
+
+
+document.getElementById('below2').addEventListener('mouseenter', function() {
+    this.style.transition = 'transform 0.9s ease'; // Reapply smooth transition
+    this.style.backgroundColor = '#fd7e14'; // Change background color on hover
+    this.style.transform = 'scale(0.9)'; // Scale the div
+});
+
+
+
+document.getElementById('below2').addEventListener('mouseleave', function() {
+    this.style.transform = 'scale(1)'; // Revert back to original scale
+    this.style.backgroundColor = ''; // Reset background color
+});
+
+
+
+
+// Call the function to initially populate input fields with data
+updateDynamicData();
+    </script>
+
+
+</body>
+</html>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+ <!-- Second Section 
+    <section class="section_home_page_2">
+        <div class="container_home_page_2">
+            <h2>Section 2</h2>
+            <p>This is the content of the second section.</p>
+        </div>
+    </section> 
+
+
+    .section_home_page_2{
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgb(14, 181, 69);
+}
+
+
+
+-->

@@ -1,0 +1,366 @@
+from django.shortcuts import render
+
+from django.shortcuts import redirect
+
+from django.contrib import messages
+
+from django.shortcuts import render, redirect, get_object_or_404
+
+from Product.md1 import *
+
+
+
+
+
+
+# views.py
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from datetime import datetime
+
+
+def sells_product(request):
+    if request.method == "POST":
+        order_date_str = request.POST.get('order_date')
+        customer_id = request.POST.get('customer_id')
+        products_data = request.POST.getlist('product_id')
+        quantities_data = request.POST.getlist('quantity')
+
+
+
+        if customer_id is None or not products_data or not quantities_data:
+            messages.error(request, 'Please provide all required information.')
+            return redirect('/purchase_product/')
+
+        try:
+            customer_id = int(customer_id)
+            order_date = datetime.strptime(order_date_str, "%Y-%m-%dT%H:%M")
+        except (ValueError, TypeError):
+            messages.error(request, 'Invalid input for Customer ID or order date and time.')
+            return redirect('/purchase_product/')
+
+        customer_instance = get_object_or_404(Customers, customer_id=customer_id)
+
+
+        
+        total_amount = 0
+
+        for product_id, quantity in zip(products_data, quantities_data):
+            product_instance = get_object_or_404(Product, product_id=product_id)
+
+            if product_instance.product_quantity < int(quantity):
+                messages.error(request, 'Not enough quantity in stock.')
+                return redirect('/purchase_product/')
+
+            subtotal = int(quantity) * product_instance.product_price
+            total_amount += subtotal
+
+            
+            order_instance=Orders.objects.create(
+                
+                product_id=product_instance,                
+                customer_id=customer_instance,
+                quantity=int(quantity),
+                subtotal=subtotal,
+                per_kg_price=product_instance.product_price,
+                order_date=order_date,
+            )
+
+
+            Cart_instance = Cart.objects.create( order_id=order_instance,customer_id=customer_instance)
+            
+
+            product_instance.product_quantity -= int(quantity)
+            product_instance.save()
+
+
+        Cart_instance.total_amount = total_amount
+        Cart_instance.save()
+
+
+
+        messages.success(request, 'Form submitted successfully')
+
+        return redirect('/purchase_product/')
+
+    products = Product.objects.all()
+    customers = Customers.objects.all()
+    
+    
+    
+
+    return render(request, 'sells_product.html', {'products': products, 'customers': customers})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#----------------------NOT NaEEDD--------------
+
+from django.db import connection
+from django.shortcuts import render
+
+def view_order_details_for_single_person(request):
+    # Write a raw SQL query to fetch the most recent order with customer details
+    query = '''
+        SELECT p.Order_Id, p.Product_Name, c.Customer_Name, p.Quantity, p.Per_kg_price, p.Subtotal
+        FROM Orders p
+        JOIN customers c ON p.Customer_ID = c.Customer_ID
+        ORDER BY p.Order_Id DESC
+        LIMIT 1
+    '''
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        latest_order = cursor.fetchone()
+
+    # Assuming 'latest_order' is a tuple, you can convert it to a dictionary for convenience
+    order_dict = {
+        'Order_Id': latest_order[0],
+        'product_name': latest_order[1],
+        'customer_name': latest_order[2],
+        'quantity': latest_order[3],
+        'per_kg_price': latest_order[4],
+        'subtotal': latest_order[5],
+    }
+
+    return render(request, 'view_One_order_details.html', {'order_details': [order_dict]})
+
+
+
+
+
+
+
+
+
+
+
+
+
+def view_order_details(request):
+    # Perform the join operation to get the details of purchased products and customers
+    order_details = Orders.objects.select_related('product_id', 'customer_id').all()
+
+    return render(request, 'view_Totall_sell_details.html', {'order_details': order_details})
+
+
+
+
+
+
+
+
+
+
+
+
+
+from django.db import connection
+from django.shortcuts import render
+def customer_with_highest_purchase(request):
+    query = '''
+        SELECT c.Customer_Id, c.Customer_Name, c.Customer_Address, c.Customer_Phone, c.Customer_Email, 
+               SUM(p.Subtotal) AS total_purchase
+        FROM Customers c
+        JOIN Orders p ON c.Customer_Id = p.Customer_Id
+        GROUP BY c.Customer_Id, c.Customer_Name, c.Customer_Address, c.Customer_Phone, c.Customer_Email
+        ORDER BY total_purchase DESC
+    '''
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        customer_info = cursor.fetchall()  # Fetch all rows instead of fetchone()
+
+    customer_list = []  # Convert fetched rows to a list of dictionaries
+    for row in customer_info:
+        customer_dict = {
+            'customer_id': row[0],
+            'customer_name': row[1],
+            'customer_address': row[2],
+            'customer_phone': row[3],
+            'customer_email': row[4],
+            'total_purchase': row[5],
+        }
+        customer_list.append(customer_dict)
+
+    return render(request, 'customer_highest_purchase.html', {'customer_info': customer_list})
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# views.py
+
+
+from django.shortcuts import render
+from django.db import connection
+
+def view_cart(request):
+    
+    latest_customer_id_query = '''
+        SELECT Customer_ID 
+        FROM Orders 
+        ORDER BY Order_Id DESC 
+        LIMIT 1
+    '''
+    with connection.cursor() as cursor:
+        cursor.execute(latest_customer_id_query)
+        latest_customer_id = cursor.fetchone()[0]  # Fetch the latest Customer_ID
+
+    # Use the retrieved Customer_ID in the main query
+    main_query = f'''
+   
+SELECT 
+    CO.Order_ID,
+    C.Customer_Name,
+    C.Customer_Address,
+    C.Customer_Phone,
+    GROUP_CONCAT(P.Product_Name) AS Product_Names,
+    CO.Quantity,
+    CO.Per_Kg_Price,
+    COA.Subtotal,
+    CO.Order_Date,
+    SUM(COA.Subtotal) OVER () AS Total_Subtotal 
+FROM
+    orders CO 
+JOIN
+    customers C ON CO.Customer_ID = C.Customer_ID 
+JOIN (
+    SELECT 
+        cart.Order_ID, 
+        SUM(cart.Total_Amount) AS Subtotal 
+    FROM 
+        cart 
+    GROUP BY 
+        cart.Order_ID
+) COA ON CO.Order_ID = COA.Order_ID 
+JOIN
+    product P ON CO.Product_Id = P.Product_Id 
+WHERE
+    CO.Customer_ID = %s
+GROUP BY
+    CO.Order_ID, C.Customer_Name, C.Customer_Address, C.Customer_Phone, CO.Product_Id, CO.Quantity, CO.Per_Kg_Price, COA.Subtotal, CO.Order_Date;
+
+ '''
+    with connection.cursor() as cursor:
+        cursor.execute(main_query, [latest_customer_id])
+        results = cursor.fetchall()
+
+    # Pass the results to the template for rendering
+    context = {'results': results}
+    return render(request, 'view_cart.html', context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from django.utils import timezone
+
+def delete_all_customer_orders(request):
+    try:
+        # Fetch all CustomerOrder instances
+        customer_orders = Cart.objects.all()
+
+        # Create a dictionary to store the sum of total_amount for each customer
+        total_amount_by_customer = {}
+
+        # Calculate the sum of total_amount and store order_id, customer_id, and total_amount before deleting
+        for order in customer_orders:
+            customer_id = order.customer_id
+            total_amount_by_customer[customer_id] = total_amount_by_customer.get(customer_id, 0) + order.total_amount
+            order.delete()
+
+        # Create or update CustomerAccount records with the calculated total_amount
+        for customer_id, total_amount in total_amount_by_customer.items():
+            payment_amount = request.POST.get('payment_amount')
+
+            # Create Payment record
+            payment_date = timezone.now()
+            payment_instance = Payment.objects.create(
+                customer_id=customer_id,
+                payment_date=payment_date,
+                payment_amount=payment_amount,
+            )
+
+            # Create CustomerAccount instance with total_buys, total_paid, total_due, and payment_id
+            customer_account_instance = CustomerAccount.objects.create(
+                customer_id=customer_id,
+                total_buys=total_amount,
+                total_paid=payment_amount,
+                total_due=float(total_amount) - float(payment_amount),
+                payment_id=payment_instance  # Assign the Payment instance to payment_id
+            )
+
+
+            payment_instance.customeraccountid = customer_account_instance
+            payment_instance.save()
+
+
+        # Optionally, you can use or store the total_amount_by_customer values as needed
+
+        # Optionally, you can add a success message here if needed
+        # messages.success(request, 'All customer orders have been deleted.')
+
+    except Exception as e:
+        # Handle exceptions or errors if necessary
+        # For example, you can display an error message
+        # messages.error(request, f'Error: {e}')
+        pass
+
+    # Redirect back to a specific page or wherever needed after deletion
+    return redirect('/cart/')  # Redirect to the homepage or any other URL
+
+
+
+
+
+
+
+
+    

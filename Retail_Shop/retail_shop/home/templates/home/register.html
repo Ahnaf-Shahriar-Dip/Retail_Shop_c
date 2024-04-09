@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: changeBackground 20s infinite alternate;
+        }
+
+        @keyframes changeBackground {
+            0% {
+                background-color: #5384ad;
+            }
+            25% {
+                background-color: #eef2f3;
+            }
+            50% {
+                background-color: #f3e9d2;
+            }
+            75% {
+                background-color: #ffcb77;
+            }
+            100% {
+                background-color: #daa357;
+            }
+        }
+
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar:hover {
+            background-color: #333;
+        }
+
+        .navbar-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .navbar-icon {
+            font-size: 28px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar:hover .navbar-icon {
+            transform: rotate(360deg);
+        }
+
+        .container {
+            margin-top: 160px; /* Adjusted to accommodate the navbar height */
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="animated-background"></div>
+
+<div class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-icon"><i class="fas fa-user"></i></span>
+        <span class="navbar-title">Register Page</span>
+    </div>
+    <div class="navbar-right">
+        <span class="navbar-text">Already have an account? <a href="/login/" style="color: white;">Login</a></span>
+    </div>
+</div>
+
+<div class="container">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="POST">
+        {% csrf_token %}
+        <h2 class="text-center">Register</h2>
+        <hr>
+        {% if messages %}
+            {{ message.tags }}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <label for="inputFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" name="first_name" id="inputFirstName" required>
+        </div>
+        <div class="mb-3">
+            <label for="inputLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" name="last_name" id="inputLastName" required>
+        </div>
+        <div class="mb-3">
+            <label for="inputUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" id="inputUsername" required>
+        </div>
+        <div class="mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="inputPassword" required>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

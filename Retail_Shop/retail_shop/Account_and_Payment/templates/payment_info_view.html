@@ -1,0 +1,119 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+{% block start %}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+    
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.8); /* Set the background color to black with 80% opacity */
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 100px;
+        }
+    
+        h2 {
+            color: #007bff;
+        }
+    
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+    
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    
+        .table tr td {
+            font-size: 15px;
+            padding: 10px;
+        }
+    
+        .table td:last-child {
+            font-size: 16px;
+        }
+    </style>
+    
+</head>
+
+
+
+
+
+
+
+
+<body>
+    <div class="container">
+        <h2 class="mb-4">Payment Details</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Payment ID</th>
+                    <th>Invoice ID</th>            
+                    <th>Customer Name</th>
+                    <th>Payed Amount</th>
+                    
+                    <th>Due</th>
+                    <th>Change Amount</th>
+                    <th>Pay Date</th>
+                    <th>Method</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in payments %}
+                    <tr>
+                        <td>{{ order.payment_id }}</td>
+                        <td>{{ order.invoice_id }}</td>
+                        <td>{{ order.customer_id.customer_name}}</td>
+                        <td>{{ order.payment_amount}} $taka</td>
+                        
+                        <td>{{ order.due}} $taka</td>
+                        <td>{{ order.change_amount}} $taka</td>
+                        <td>{{ order.payment_date}}</td>
+                        <td>{{ order.pay_method}}</td>
+                        
+                        
+                    </tr>
+
+                    {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+
+    
+</body>
+</html>
+{% endblock %}

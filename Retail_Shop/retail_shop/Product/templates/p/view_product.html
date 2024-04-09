@@ -1,0 +1,250 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{% block start %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+   
+    
+    {% load static %}
+    <!-- Reference your static CSS file -->
+    <link rel="stylesheet" href="{% static 'Product_Style.css' %}">
+
+
+</head>
+
+
+    <!-- Add your custom CSS styles -->
+    <style>
+        /* Add custom CSS for search box animation */
+        .search-box {
+    transition: all 0.3s ease;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    margin-left: 248px;
+
+    
+}
+
+        .search-box-hover {
+            transform: scale(1.1);
+            cursor: pointer;
+
+
+        }
+
+
+        .search-container{
+            text-align: center;
+
+        }
+    </style>
+
+
+
+
+<body>
+
+
+    
+
+    <div id="messagePopup" class="message-popup">
+        <div class="circle-container">
+            <div class="checkmark"></div>
+        </div>
+    </div>
+
+    
+
+    <div class="search-container">
+        <form id="searchForm" class="search-box">
+            <input name="search" id="searchInput" type="text" class="form-control" placeholder="Search Product">
+        </form>
+    </div>
+    <div class="dip_cn">
+        <table class="table mt-6 shadow-lg table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#Product ID</th>
+                    <th scope="col">Product name</th>
+                    <th scope="col">Categories</th>
+                    <th scope="col">Product Details</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price per item</th>
+                    
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr class="table-row">
+                    <td>{{ product.product_id }}</td>
+                    <td>{{ product.product_name }}</td>
+                    <td>
+                        {{ product.category_id.category_name }}
+                    </td>
+                    <td>{{ product.product_description }}</td>
+                    <td>{{ product.product_quantity }}</td>
+                    <td>{{ product.product_price }}</td>
+                    
+                    <td>
+                        <a href="/product_delete/{{ product.product_id }}/" class="btn-dip-red" onclick="return confirmDelete('{{ product.product_id }}')">Delete</a>
+                        <a href="/product_update/{{ product.product_id }}/" class="btn-dip-green">Update</a>
+                        <button class="btn-dip-blue" onclick="displayQuantityForm('{{ product.product_id }}')">Add Quantity</button>
+                        <form id="addQuantityForm_{{ product.product_id }}" style="display: none;">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" placeholder="Enter quantity">
+                            <button type="button" onclick="submitQuantity('{{ product.product_id }}')">Submit</button>
+                            <div id="messageContainer_{{ product.product_id }}"></div> <!-- Message container -->
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- JavaScript for handling quantity form display and submission -->
+    <script>
+
+
+function confirmDelete(productId) {
+    // Prompt the user for confirmation
+    var confirmation = window.confirm("Are you sure you want to delete this product?");
+    
+    // Check if the user confirmed the deletion
+    if (confirmation) {
+        // If user confirms, redirect to the delete URL
+        window.location.href = "/product_delete/" + productId + "/";
+    } else {
+        // If user cancels, return false to prevent the default action
+        return false;
+    }
+}
+
+
+
+
+        // Add event listener for mouseover
+        document.getElementById("searchForm").addEventListener("mouseover", function() {
+            this.classList.add("search-box-hover");
+        });
+
+        // Add event listener for mouseout
+        document.getElementById("searchForm").addEventListener("mouseout", function() {
+            this.classList.remove("search-box-hover");
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select the search input field
+            const searchInput = document.getElementById("searchInput");
+
+            // Add event listener to detect changes in the search input
+            searchInput.addEventListener("input", function() {
+                // Get the search term entered by the user
+                const searchTerm = searchInput.value.toLowerCase();
+
+                // Select all the table rows
+                const tableRows = document.querySelectorAll(".table-row");
+
+                // Loop through each table row and check if it matches the search term
+                tableRows.forEach(function(row) {
+                    // Get the product name cell in the current row
+                    const productNameCell = row.querySelector("td:nth-child(2)");
+
+                    // Get the product name text content
+                    const productName = productNameCell.textContent.toLowerCase();
+
+                    // Check if the product name contains the search term
+                    if (productName.includes(searchTerm)) {
+                        // Show the row if it matches the search term
+                        row.style.display = "table-row";
+                    } else {
+                        // Hide the row if it does not match the search term
+                        row.style.display = "none";
+                    }
+                });
+            });
+        });
+
+        function displayQuantityForm(productId) {
+            // Show the form corresponding to the product ID
+            document.getElementById('addQuantityForm_' + productId).style.display = 'block';
+        }
+
+        function submitQuantity(productId) {
+            var quantity = document.querySelector('#addQuantityForm_' + productId + ' input[name="quantity"]').value;
+            
+            fetch('/update_quantity/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: 'product_id=' + productId + '&new_quantity=' + quantity
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Show pop-up message
+                    showPopupMessage('Quantity updated successfully');
+                    // Reload the page after a delay
+                    setTimeout(() => {
+                        location.reload();
+                    }, 700); // 700 milliseconds
+                } else {
+                    console.error('Failed to update quantity:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error updating quantity:', error);
+            });
+
+            document.getElementById('addQuantityForm_' + productId).style.display = 'none';
+        }
+
+        // Function to show pop-up message
+        function showPopupMessage(message) {
+            var messagePopup = document.getElementById('messagePopup');
+            messagePopup.style.display = 'block';
+
+            // Hide the pop-up message after a delay
+            setTimeout(() => {
+                messagePopup.style.display = 'none';
+            }, 2000); // 2000 milliseconds = 2 seconds
+        }
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+</body>
+</html>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,532 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body {
+    background-color: #254d5d; 
+    
+    font-family: 'Arial', sans-serif;
+}
+.navbar-top {
+    background-color: aliceblue;
+    margin: 0px 0px 10px 0px;
+    padding: 20px 10px 20px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.text-section, .datetime, .button {
+    transition: transform 0.3s ease;
+}
+
+.text-section:hover, .datetime:hover, .button:hover {
+    transform: scale(1.05);
+}
+
+.text-section {
+    padding: 0px;
+    margin: 0px;
+    font-size: 26px;
+    text-align: center;
+}
+
+.button {
+    margin-left: 20px; /* Adjust this value as needed */
+}
+
+.button a {
+    display: inline-block;
+    padding: 12px 24px; /* Adjust padding to increase button size */
+    background-color: #4CAF50; /* Green */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px; /* Adjust font size as needed */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+.button a:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+.datetime {
+    display: flex;
+    align-items: center;
+}
+
+.date, .time {
+    font-size: 21px;
+    font-weight: bold;
+    color: #333;
+    padding: 15px;
+    background-color: #c9c9c9;
+    border-radius: 10px;
+    margin-right: 10px; /* Adjust gap between date and time */
+}
+
+.time {
+    color: #a77070; /* Adjust time color if needed */
+}
+
+
+
+
+
+
+.customer-info-table {
+    background-color: #f7fcff;
+    margin: 5px 618px 26px 5px;
+    padding: 20px 10px 20px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(255 0 0);
+}
+
+
+.table-container {
+    margin: 0 auto; /* Center-align the table */
+    overflow-x: auto; /* Add horizontal scroll if table width exceeds container */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Add bottom border to cells */
+}
+
+thead th {
+    background-color: #f2f2f2; /* Gray background for header */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
+}
+
+
+.product-info-table {
+    background-color: #f7fcff;
+    margin: 5px 618px 60px 5px;
+    padding: 20px 10px 30px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 47);
+    animation: shadow-animation-one 3s infinite alternate linear;
+}
+
+@keyframes shadow-animation-one {
+    0% {
+        box-shadow: 0 0 10px rgb(255, 0, 0); /* Start with the original shadow */
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(38, 255, 0, 0.8); /* Add red shadow at 50% */
+    }
+    100% {
+        box-shadow: 0 0 10px rgb(73, 71, 193); /* Return to the original shadow at 100% */
+    }
+}
+
+
+
+
+
+
+#invoice_section{
+    padding-top: 10px;
+    display: flex;
+    
+    justify-content: center;
+    color: red;
+}
+
+
+#find-sum-totall{
+    text-align: left;
+}
+
+
+
+
+.product-table-container {
+    margin-top: 20px ; /* Center-align the table */
+    overflow-x: auto; /* Add horizontal scroll if table width exceeds container */
+}
+
+.product-info-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-info-table th, .product-info-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #040404;
+    background-color: #cdc2c2;/* Add bottom border to cells */
+}
+
+
+
+
+.product-info-table th, .product-info-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Add bottom border to cells */
+    border-right: 1px solid #ddd; /* Add vertical border */
+    border-left: 1px solid #ddd; /* Add vertical border */
+}
+
+.product-info-table th:first-child, .product-info-table td:first-child {
+    border-left: none; /* Remove left border for first column */
+}
+
+
+
+
+
+.product-info-table thead th {
+    background-color: #a3afac; /* Gray background for header */
+    color: #333; /* Text color for header cells */
+    text-transform: uppercase; /* Convert text to uppercase */
+    font-size: 14px; /* Adjust font size for header cells */
+}
+
+.product-info-table tbody tr:nth-child(even) {
+    background-color: #1500ffdd; /* Alternate row background color */
+}
+
+.product-info-table tbody td {
+    color:  #333; /* Text color for body cells */
+}
+
+.product-info-table tbody td:first-child {
+    font-weight: bold; /* Bold font for first column in each row */
+}
+
+
+
+.product-info-table th:nth-child(1), /* Select the first th element */
+.product-info-table td:nth-child(1) { /* Select the first td element */
+    width: 45%; /* Set a larger width for the Product column */
+}
+
+
+.product-info-table th:nth-child(2), /* Select the first th element */
+.product-info-table td:nth-child(2) { /* Select the first td element */
+    width: 15%; /* Set a larger width for the Product column */
+}
+
+
+.product-info-table th:nth-child(3), /* Select the first th element */
+.product-info-table td:nth-child(3) { /* Select the first td element */
+    width: 20%; /* Set a larger width for the Product column */
+}
+
+.product-info-table th:nth-child(4), /* Select the first th element */
+.product-info-table td:nth-child(4) { /* Select the first td element */
+    width: 20%; /* Set a larger width for the Product column */
+}
+
+
+
+
+.product-info-table th, 
+.product-info-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Add bottom border to cells */
+    border-right: 1px solid #ddd; /* Add vertical border */
+    border-left: 1px solid #ddd; /* Add vertical border */
+}
+
+.product-info-table th:first-child, 
+.product-info-table td:first-child {
+    border-left: none; /* Remove left border for first column */
+}
+
+
+
+#customerSearch{
+
+    
+    color: #a77070;
+    margin-bottom: 10px;
+   
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
+  
+ .modal-content {
+  background-color: #f8d7da; /* Red background color */
+  color: #721c24; /* Dark red text color */
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #f5c6cb; /* Border color */
+  width: 30%; /* Could be more or less, depending on screen size */
+  border-radius: 40px;
+  position: relative;
+  text-align: center; /* Center align text */
+}
+
+/* Close Button */
+.close {
+  color: #721c24; /* Dark red color */
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: -5px;
+}
+
+.close:hover,
+.close:focus {
+  color: #721c24; /* Dark red color */
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Icon */
+.modal-content i {
+  font-size: 36px; /* Icon size */
+  margin-bottom: 20px; /* Spacing between icon and message */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* styles.css */
+
+
+.right-side-content {
+    position: absolute;
+    bottom: 560px;
+    left: 1180px;
+    width: 459px;
+    background-color: #f0f0f0;
+    padding: 3px;
+    margin-top: 95px;
+    z-index: 1000;
+    margin-right: 0px;
+    margin-left: -10px;
+    border-radius: 10px;
+}
+
+.right-content {
+    max-width: 225px; /* Example width */
+    margin: 0 auto;
+    padding: 10px; /* Centers the content horizontally */
+}
+
+
+
+
+
+/* styles.css */
+
+.navigate-button {
+    display: inline-block;
+    background-color: #007bff; /* Blue */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px; /* Adjust padding as needed */
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s;
+    background-color: #721c24;
+    margin-left: -100px;
+    width: 400px; /* Smooth transition for hover effect */
+}
+
+.navigate-button:hover {
+    background-color: #1ab092; /* Darker blue on hover */
+}
+
+
+
+
+
+.right-side-content_2 {
+    position: absolute;
+    bottom: 7px; /* Adjust as needed */
+    left: 1125px; /* Adjust as needed */
+    width: 550px; /* Adjust as needed */
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin-top: 95px;
+    z-index: 999; /* Adjust as needed */
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: beige;
+    animation: shadow-animation 2s infinite alternate cubic-bezier(1, -0.41, 0, 1.28);
+}
+
+.input-container {
+    width: calc(50% - 10px); /* Set width for input containers */
+    margin-bottom: 20px;
+    margin-right: -30px; /* Adjust spacing between input fields */
+}
+
+.full-width {
+    width: 2090px;
+    height: 80px;
+    margin-right: 101px;
+    padding-left: 60px;
+    padding-right: 30px;
+    margin-left: 102px;
+    background-color: #68dd1a54;
+    border-radius: 10px;
+    padding-top: 5px;
+}
+.input-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-field {
+    width: calc(90% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ad00ff;
+    box-sizing: border-box;
+    background-color: #51567417;
+}
+/* Style for input field when focused */
+.input-field:focus {
+    outline: none;
+    border-color: #007bff; /* Blue */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Example box shadow */
+}
+
+/* Optional: Style for submit button */
+.submit-button {
+    width: 100%; /* Set width for the submit button */
+    background-color: #007bff; /* Blue */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+    margin-top: 25px;
+}
+
+.submit-button:hover {
+    background-color: #df7f0a; /* Darker blue on hover */
+}
+#input5_label{
+
+
+    margin-left: 65px;
+    color: red;
+    
+}
+
+
+#input6{
+
+    background-color: #0c6dff61;
+}
+
+
+
+#input7 {
+    background-color: #fffb0040; /* Set the background color */
+    /* Other styles for #input7 can be added here */
+
+    /* Animation */
+    
+}
+
+
+
+
+
+
+
+
+#input8{
+
+    background-color: #ff000040; 
+}
+
+#input5{
+
+    background-color: rgb(255, 255, 255);
+    animation: shadow-animation 2s infinite alternate cubic-bezier(1, -0.41, 0, 1.28);
+}
+
+
+
+
+@keyframes shadow-animation {
+    0% {
+        box-shadow: 0 0 10px rgb(0 255 3);
+    }
+    50% {
+        box-shadow: 0 0 10px rgb(255 0 0);
+    }
+    100% {
+        box-shadow: 0 0 10px rgb(5 33 255);
+    }
+}
+

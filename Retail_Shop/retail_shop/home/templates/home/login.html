@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            animation: changeBackground 20s infinite alternate;
+        }
+        @keyframes changeBackground {
+            0% {
+                background-color: #5384ad;
+            }
+            25% {
+                background-color: #eef2f3;
+            }
+            50% {
+                background-color: #f3e9d2;
+            }
+            75% {
+                background-color: #ffcb77;
+            }
+            100% {
+                background-color: #daa357;
+            }
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .register-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .register-link:hover {
+            text-decoration: underline;
+        }
+        .fa-user {
+            margin-right: 10px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .navbar-right{
+            margin-right: 50px;
+        }
+        .navbar {
+            background-color: #222;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+        .navbar:hover {
+            background-color: #333;
+        }
+        .navbar-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .navbar-icon {
+            font-size: 28px;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+        .navbar:hover .navbar-icon {
+            transform: rotate(360deg);
+        }
+        .navbar-text {
+            font-size: 18px;
+            margin-right: 10px;
+            animation: slideIn 2s forwards;
+        }
+        @keyframes slideIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="animated-background"></div>
+
+<div class="navbar">
+    <div class="navbar-left">
+        <span class="navbar-icon"><i class="fas fa-store-alt"></i></span>
+        <span class="navbar-title">RetailShop Web App</span>
+    </div>
+    <div class="navbar-right">
+        <span class="navbar-text">Welcome to</span>
+        <span class="navbar-text">RetailShop Web App</span>
+    </div>
+</div>
+
+<div class="container">
+    <h2><i class="fas fa-user"></i>Login</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="mb-3">
+            <input type="text" class="form-control" name="username" placeholder="Enter your username">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password" placeholder="Enter your password">
+        </div>
+        <p>Don't have an account? <a href="/register/" class="register-link">Register</a></p>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+</body>
+</html>

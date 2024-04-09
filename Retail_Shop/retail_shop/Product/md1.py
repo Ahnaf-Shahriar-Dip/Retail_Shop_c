@@ -1,0 +1,314 @@
+
+
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+from django.db import models
+from django.contrib.auth.models import User
+
+class AuthGroup(models.Model):
+    name = models.CharField(unique=True, max_length=150)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group'
+
+
+class AuthGroupPermissions(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group_permissions'
+        unique_together = (('group', 'permission'),)
+
+
+class AuthPermission(models.Model):
+    name = models.CharField(max_length=255)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
+    codename = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_permission'
+        unique_together = (('content_type', 'codename'),)
+
+
+class AuthUser(models.Model):
+    password = models.CharField(max_length=128)
+    last_login = models.DateTimeField(blank=True, null=True)
+    is_superuser = models.IntegerField()
+    username = models.CharField(unique=True, max_length=150)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
+    email = models.CharField(max_length=254)
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
+    date_joined = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user'
+
+
+class AuthUserGroups(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_groups'
+        unique_together = (('user', 'group'),)
+
+
+class AuthUserUserPermissions(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_user_user_permissions'
+        unique_together = (('user', 'permission'),)
+
+
+
+
+
+class DjangoAdminLog(models.Model):
+    action_time = models.DateTimeField()
+    object_id = models.TextField(blank=True, null=True)
+    object_repr = models.CharField(max_length=200)
+    action_flag = models.PositiveSmallIntegerField()
+    change_message = models.TextField()
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'django_admin_log'
+
+
+class DjangoContentType(models.Model):
+    app_label = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'django_content_type'
+        unique_together = (('app_label', 'model'),)
+
+
+class DjangoMigrations(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    applied = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_migrations'
+
+
+class DjangoSession(models.Model):
+    session_key = models.CharField(primary_key=True, max_length=40)
+    session_data = models.TextField()
+    expire_date = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'django_session'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Customers(models.Model):
+    customer_id = models.AutoField(db_column='Customer_Id', primary_key=True)  # Field name made lowercase.
+    customer_name = models.CharField(db_column='Customer_Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    customer_address = models.CharField(db_column='Customer_Address', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    customer_phone = models.CharField(db_column='Customer_Phone', max_length=15, blank=True, null=True)  # Field name made lowercase.
+    customer_email = models.CharField(db_column='Customer_Email', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    order_id = models.ForeignKey('Orders', models.DO_NOTHING, db_column='Order_Id', blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'customers'
+
+
+
+class Orders(models.Model):
+    order_id = models.AutoField(db_column='Order_Id', primary_key=True)  # Field name made lowercase.
+    product_id = models.ForeignKey('Product', models.DO_NOTHING, db_column='Product_Id', blank=True, null=True)  # Field name made lowercase.
+    customer_id = models.ForeignKey(Customers, models.DO_NOTHING, db_column='Customer_Id', blank=True, null=True)  # Field name made lowercase.
+    per_kg_price = models.DecimalField(db_column='Per_Kg_Price', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    quantity = models.IntegerField(db_column='Quantity', blank=True, null=True)  # Field name made lowercase.
+    subtotal = models.DecimalField(db_column='Subtotal', max_digits=10, decimal_places=2, blank=True, null=True)
+    profit = models.DecimalField(db_column='Profit', max_digits=10, decimal_places=2, blank=True, null=True) 
+    order_date = models.DateTimeField(db_column='Order_Date', blank=True, null=True)  # Field name made lowercase.
+    invoice_id=models.CharField(db_column='Invoice_Id', max_length=100, blank=True, null=True)
+    class Meta:
+        managed = False
+        db_table = 'orders'
+
+
+class Product(models.Model):
+    product_id = models.AutoField(db_column='Product_Id', primary_key=True)  # Field name made lowercase.
+    product_name = models.CharField(db_column='Product_Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    product_description = models.TextField(db_column='Product_Description', blank=True, null=True)  # Field name made lowercase.
+    product_quantity = models.IntegerField(db_column='Product_Quantity', blank=True, null=True)  # Field name made lowercase.
+    product_price = models.DecimalField(db_column='Product_Price', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    product_Price_Worth = models.DecimalField(db_column='Price_Worth', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    supplier = models.ForeignKey('Supplier', models.DO_NOTHING, db_column='Supplier_Id', blank=True, null=True)  # Field name made lowercase.
+    category_id = models.ForeignKey('ProductCategories', models.DO_NOTHING, db_column='Category_Id', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'product'
+
+
+class ProductCategories(models.Model):
+    category_id = models.AutoField(db_column='Category_Id', primary_key=True)  # Field name made lowercase.
+    category_name = models.CharField(db_column='Category_Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    
+
+    class Meta:
+        managed = False
+        db_table = 'product_categories'
+
+
+class SignUp(models.Model):
+    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    first_name = models.CharField(db_column='First_Name', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    last_name = models.CharField(db_column='Last_Name', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='Email', unique=True, max_length=50, blank=True, null=True)  # Field name made lowercase.
+    password = models.CharField(db_column='Password', max_length=50, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'sign_up'
+
+
+class Supplier(models.Model):
+    supplier_id = models.AutoField(db_column='Supplier_Id', primary_key=True)  # Field name made lowercase.
+    supplier_name = models.CharField(db_column='Supplier_Name', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    phone_number = models.CharField(db_column='Phone_number', max_length=15, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'supplier'
+
+
+
+class Cart(models.Model):
+    cart_id = models.AutoField(db_column='Cart_Id', primary_key=True)  # Field name made lowercase.
+    customer_id = models.ForeignKey('Customers', models.DO_NOTHING, db_column='Customer_Id', blank=True, null=True)  # Field name made lowercase.
+    total_amount = models.DecimalField(db_column='Total_Amount', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    order_id = models.ForeignKey('Orders', models.DO_NOTHING, db_column='Order_Id', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'cart'
+
+
+
+
+class CustomerAccount(models.Model):
+    customer_account_id = models.AutoField(db_column='Customer_Account_Id', primary_key=True)  # Field name made lowercase.
+    customer_id = models.ForeignKey('Customers', models.DO_NOTHING, db_column='Customer_Id', blank=True, null=True)  # Field name made lowercase.
+    payment_id = models.ForeignKey('Payment', models.DO_NOTHING, db_column='Payment_Id', blank=True, null=True)  # Field name made lowercase.
+    order_id = models.ForeignKey('Orders', models.DO_NOTHING, db_column='Order_ID', blank=True, null=True)  # Field name made lowercase.
+    total_buys = models.DecimalField(db_column='Total_Buys', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    total_paid = models.DecimalField(db_column='Total_Paid', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    total_due = models.DecimalField(db_column='Total_Due', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'customer_account'
+
+
+
+
+
+class Payment(models.Model):
+    payment_id = models.AutoField(db_column='Payment_Id', primary_key=True)  # Field name made lowercase.
+    customer_id = models.ForeignKey('Customers', models.DO_NOTHING, db_column='Customer_Id', blank=True, null=True) 
+    invoice_id=models.CharField(db_column='Invoice_Id', max_length=200, blank=True, null=True)
+    payment_date = models.DateTimeField(db_column='Payment_Date', blank=True, null=True)  # Field name made lowercase.
+    payment_amount = models.DecimalField(db_column='Payment_Amount', max_digits=10, decimal_places=2, blank=True, null=True) 
+    due = models.DecimalField(db_column='Due', max_digits=10, decimal_places=2, blank=True, null=True) 
+    change_amount = models.DecimalField(db_column='Change_Amount', max_digits=10, decimal_places=2, blank=True, null=True) 
+    pay_method=models.CharField(db_column='Pay_Method', max_length=20, blank=True, null=True)
+    customeraccountid = models.ForeignKey(CustomerAccount, models.DO_NOTHING, db_column='CustomerAccountID', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'payment'
+
+
+
+
+
+class Invoice(models.Model):
+    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    invoice_id=models.CharField(db_column='Invoice_Id', max_length=200, blank=True, null=True)
+    customer_id = models.ForeignKey('Customers', models.DO_NOTHING, db_column='Customer_Id', blank=True, null=True) 
+    shipping_cost = models.DecimalField(db_column='Shipping_Cost',max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    labour_cost = models.DecimalField(db_column='Labour_Cost', max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    vat = models.DecimalField(db_column='Vat', max_digits=10, decimal_places=2, blank=True, null=True)
+    discount = models.DecimalField(db_column='Discount', max_digits=10, decimal_places=2, blank=True, null=True)  # Add this field
+    total = models.DecimalField(db_column='Totall', max_digits=10, decimal_places=2, blank=True, null=True)
+    profit = models.DecimalField(db_column='Profit', max_digits=10, decimal_places=2, blank=True, null=True) 
+    date_time  = models.DateTimeField(db_column='Date', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'invoice'
+
+
+
+
+class Staff(models.Model):
+    staff_id = models.AutoField(db_column='Staff_Id', primary_key=True)  
+    staff_name=models.CharField(db_column='Staff_Name', max_length=255, blank=True, null=True)
+    salary = models.DecimalField(db_column='Salary',max_digits=10, decimal_places=2, blank=True, null=True)
+    phone_Number=models.CharField(db_column='Phone_Number', max_length=255, blank=True, null=True)
+    address=models.CharField(db_column='Address', max_length=200, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'staff'
+
+
+
+
+
+
+class Expense(models.Model):
+    id = models.AutoField(db_column='Id', primary_key=True)  # Field name made lowercase.
+    expense_for=models.CharField(db_column='Expense_For', max_length=200, blank=True, null=True)
+    amount = models.DecimalField(db_column='Amount',max_digits=10, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    date_time  = models.DateTimeField(db_column='Date', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'expense'

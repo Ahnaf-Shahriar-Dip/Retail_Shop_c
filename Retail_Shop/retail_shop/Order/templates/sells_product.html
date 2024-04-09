@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS</title>
+
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'pos.css' %}">
+</head>
+
+<body>
+    <section id="navbar_top" class="navbar-top">
+        <div id="text_section" class="text-section">
+            <h2>Welcome to Point of Sale</h2>
+        </div>
+    
+        <div id="datetime" class="datetime">
+            <div class="date" id="date"></div>
+            <div class="time" id="time"></div>
+        </div>
+    
+        <form class="button" id="nav_but_1">
+            <a href="/" type="submit"> Home </a>
+        </form>
+    </section>
+
+    <section id="customer_info_table" class="customer-info-table">
+        <div class="customer-selection">
+            <form id="customer_selection_form">
+                <label for="customer_list">Select a Customer:</label>
+                <select id="customer_list">
+                    {% for customer in customers %}
+                        <option value="{{ customer.customer_id }}" 
+                                data-email="{{ customer.customer_email }}"
+                                data-phone="{{ customer.customer_phone }}"
+                                data-address="{{ customer.customer_address }}">
+                            {{ customer.customer_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button type="button" id="add_customer_btn">Add Customer</button>
+            </form>
+        </div>
+
+        <div class="customer-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Customer id</th>
+                        <th>Customer Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="customer_table_body">
+                    <!-- Customers added to the table will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+
+    <section id="product_info_table" class="product-info-table">
+        <div class="product-selection">
+            <form id="product_selection_form">
+                
+                <label for="product_list">Select a Product:</label>
+                
+                
+                
+
+
+
+                <select id="product_list">
+                    {% for product in products %}
+                    <option value="{{ product.product_id }}" data-price="{{ product.product_price }}"  data-quantity="{{ product.product_quantity }}" >{{ product.product_name }}--({{ product.product_quantity }})</option>
+                    {% endfor %}
+                </select>
+
+                
+                <button type="button" id="add_product_btn">Add</button>
+            </form>
+        </div>
+
+        <div id="invoice_section">
+            
+            
+
+
+        </div>
+
+        <div class="product-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product ID</th> <!-- Added Product ID column -->
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                        
+                        <th>Action</th>
+                        
+                        
+                    </tr>
+                </thead>
+
+
+                <tbody id="product_table_body">
+                    <!-- Products added to the table will be displayed here -->
+
+                    <tfoot>
+                        <tr id="total_row" style="color: rgb(255, 255, 255);  ">
+                            <td colspan="4" style="background-color: #0045606e; font-size: 26px; ">Total:</td>
+                            <td colspan="2" id="find-sum-totall" style="background-color: #0045606e; font-size: 26px; text-align: center;">$0.00</td>
+                        </tr>
+                    </tfoot>
+
+                    
+                </tbody>
+
+                
+            </table>
+        </div>
+
+
+       <!-- <p id="find-sum-totall">Totall:</p>    ok  -->
+
+
+
+        
+    </section>
+
+
+    <section id="right_side_content" class="right-side-content">
+        <!-- Content for the right side -->
+        <div class="right-content">
+            <a href="/add_customer/" class="navigate-button">Add New Customer Page</a>
+        </div>
+
+        <div class="right-content">
+            <a href="/add_product/" class="navigate-button">Add New Product</a>
+        </div>
+        
+    </section>
+
+
+    <section id="right_side_content_2" class="right-side-content_2"  >
+        
+        <div class="input-container">
+            <label for="input1" class="input-label">Shipping Cost:</label>
+            <input  name="shipping_cost" type="text" id="input1" class="input-field" placeholder="Enter Shipping Cost"  value="0">
+        </div>
+        <div class="input-container">
+            <label for="input2" class="input-label">Labour Cost:</label>
+            <input name="labour_cost" type="text" id="input2" class="input-field" placeholder="Enter Labour Cost" value="0">
+        </div>
+        <div class="input-container">
+            <label for="input3" class="input-label">Vat (%):</label>
+            <input name="vat" type="number" id="input3" class="input-field" placeholder="Enter Vat if any" step="1.00" value="0">
+        </div>
+        
+        <div class="input-container">
+            <label for="input4" class="input-label">Discount:</label>
+            <input name="discount" type="text" id="input4" class="input-field" placeholder="Enter Discount if any" value="0">
+        </div>
+
+        
+
+        <div class="input-container full-width">
+            <label for="input5" id="input5_label" class="input-label">Total:</label>
+            <input name="total" type="text" id="input5" class="input-field" placeholder="See Total" readonly value="0">
+        </div>
+
+       
+
+
+        <div class="input-container">
+            <label for="input6" id="input6_label" class="input-label">Payed:</label>
+            <input type="text" id="input6" class="input-field" placeholder="Payed" value="0">
+        </div>
+        <div class="input-container">
+            <label for="input7" id="input7_label" class="input-label">Change Amount:</label>
+            <input type="text" id="input7" class="input-field" placeholder="Enter Change Amount" value="0" >
+        </div>
+
+
+        <div class="input-container">
+            <label for="input6" id="input8_label" class="input-label">Due:</label>
+            <input type="text" id="input8" class="input-field" placeholder="Due" value="0">
+        </div>
+
+
+        <div class="input-container">
+            <label for="input7" id="input9_label" class="input-label">Payment Method:</label>
+            <select id="input9" class="input-field">
+                <option value="Bkash">Bkash</option>
+                <option value="Cash">Cash</option>
+            </select>
+        </div>
+        
+
+
+        <!--<button type="button" id="submit_order_btn" class="submit-button">Proceed</button>   -->
+        <button type="button" id="submit_order_btn" class="submit-button">Proceed</button>
+
+
+    </section>
+    
+    
+    
+
+    
+
+
+
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <i class="fas fa-exclamation-circle"></i> <!-- Font Awesome icon -->
+          <p id="modal-message"></p>
+        </div>
+      </div>
+    
+
+
+
+
+
+<script>
+
+
+
+ // Function to generate invoice ID
+ function generateInvoiceId() {
+        // Retrieve the current invoice counter from local storage
+        let invoiceCounter = parseInt(localStorage.getItem('invoiceCounter')) || 1;
+        // Return the formatted invoice ID
+        return `Inv-${invoiceCounter}`;
+}
+
+    // Function to increment invoice ID for the next order
+function incrementInvoiceId() {
+        // Retrieve the current invoice counter from local storage
+        let invoiceCounter = parseInt(localStorage.getItem('invoiceCounter')) || 1;
+        // Increment the counter and update it in local storage
+        localStorage.setItem('invoiceCounter', invoiceCounter + 1);
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Add event listener for the submit order button
+
+
+    const invoiceId = generateInvoiceId();
+
+    const invoiceSection = document.getElementById('invoice_section');
+    invoiceSection.innerHTML = `<p>Invoice ID: ${invoiceId}</p>`;
+
+    
+
+
+    const submitOrderBtn = document.getElementById('submit_order_btn');
+
+
+
+    submitOrderBtn.addEventListener('click', function() {
+    
+
+
+
+        submitOrder(invoiceId);
+        submitInvoice(invoiceId);
+        submitPayment(invoiceId);
+        
+        // Retrieve customer information
+        const customerSelect = document.getElementById('customer_list');
+        const selectedCustomer = customerSelect.options[customerSelect.selectedIndex];
+        const customerId = encodeURIComponent(selectedCustomer.value);
+        const customerName = encodeURIComponent(selectedCustomer.textContent);
+        const customerEmail = encodeURIComponent(selectedCustomer.dataset.email);
+        const customerPhone = encodeURIComponent(selectedCustomer.dataset.phone);
+        const customerAddress = encodeURIComponent(selectedCustomer.dataset.address);
+        
+        // Retrieve input values for other details
+        const shippingCost = encodeURIComponent(document.getElementById('input1').value);
+        const laborCost = encodeURIComponent(document.getElementById('input2').value);
+        const vat = encodeURIComponent(document.getElementById('input3').value);
+        const discount = encodeURIComponent(document.getElementById('input4').value);
+        const total = encodeURIComponent(document.getElementById('input5').value);
+        const payed = encodeURIComponent(document.getElementById('input6').value);
+        const changeAmount = encodeURIComponent(document.getElementById('input7').value);
+        const due = encodeURIComponent(document.getElementById('input8').value);
+        const paymentMethod = encodeURIComponent(document.getElementById('input9').value);
+
+        // Retrieve total element
+        const totalElement = document.getElementById('find-sum-totall');
+        const totalAmount = encodeURIComponent(totalElement.textContent.trim()); // Get the text content of the total element
+
+
+        let productInfo = [];
+
+        // Retrieve product information from each row in the product table
+        const productRows = document.querySelectorAll('#product_table_body tr');
+        productRows.forEach(row => {
+            const productId = encodeURIComponent(row.querySelector('td:nth-child(1)').textContent);
+            const productName = encodeURIComponent(row.querySelector('td:nth-child(2)').textContent);
+            const quantity = encodeURIComponent(row.querySelector('td:nth-child(3) input').value); // Retrieve input value for quantity
+            const price = encodeURIComponent(row.querySelector('td:nth-child(4) input').value); // Retrieve price from dataset
+            const subtotal = encodeURIComponent(row.querySelector('td:nth-child(5)').textContent);
+            
+
+            // Construct an object with product information and push it to the productInfo array
+            const productData = {
+                productId: productId,
+                productName: productName,
+                quantity: quantity,
+                price: price,
+                subtotal: subtotal,
+                invoiceId: invoiceId,
+                total: totalAmount
+            };
+            productInfo.push(productData);
+        });
+
+        // Get current local date and time
+        const currentDate = new Date();
+        const formattedDate = currentDate.toLocaleString(); // Format date as per local time zone
+
+        // Construct the URL for the invoice template HTML page with product information, customer details, and other data as query parameters
+        const url = "{% static 'invoice_template.html' %}?" +
+    productInfo.map((product, index) => 
+        `productId${index}=${product.productId}` +
+        `&productName${index}=${product.productName}` +
+        `&quantity${index}=${product.quantity}` +
+        `&price${index}=${product.price}` +
+        `&subtotal${index}=${product.subtotal}` +
+        `&invoiceId${index}=${product.invoiceId}`)
+        .join('&') +
+        `&date=${formattedDate}` +
+        `&customerId=${customerId}` +
+        `&customerName=${customerName}` +
+        `&customerEmail=${customerEmail}` +
+        `&customerPhone=${customerPhone}` +
+        `&customerAddress=${customerAddress}` +
+        `&shippingCost=${shippingCost}` +
+        `&laborCost=${laborCost}` +
+        `&vat=${vat}` +
+        `&discount=${discount}` +
+        `&total=${total}` +
+        `&payed=${payed}` +
+        `&changeAmount=${changeAmount}` +
+        `&due=${due}` +
+        `&paymentMethod=${paymentMethod}` +
+        `&totalAmount=${totalAmount}`; // Add total amount to the URL
+
+
+        // Redirect to the invoice template HTML page with the constructed URL
+        window.open(url, '_blank');
+        location.reload();
+    });
+});
+
+
+
+
+
+
+
+function submitInvoice() {
+    const shippingCost = parseFloat(document.getElementById('input1').value) || 0;
+    const labourCost = parseFloat(document.getElementById('input2').value) || 0;
+    const vatAmount = parseFloat(document.getElementById('input3').value) || 0;
+    const discount = parseFloat(document.getElementById('input4').value) || 0;
+    const total = parseFloat(document.getElementById('input5').value) || 0;
+
+    const cal_act_vat = (shippingCost + labourCost+ productSubtotalSum   ) * (vatAmount / 100);
+
+    // Get the invoice ID from the Orders table
+    const invoiceId = document.querySelector('#invoice_section p').textContent.replace('Invoice ID: ', '').trim();
+   
+    const customerId = parseInt(document.querySelector('#customer_table_body tr td:first-child').textContent); // Get customer ID from the first row
+
+
+    console.log(customerId)
+    
+
+
+    // Create an object to hold the invoice data
+    const invoiceData = {
+        shipping_cost: shippingCost,
+        labour_cost: labourCost,
+        vat: cal_act_vat,
+        discount: discount,
+        total: total,
+        invoice_id: invoiceId ,// Include the invoice ID from the Orders table
+        customer_id:customerId
+    };
+
+    console.log('Sending invoice data:', invoiceData); // Log the invoice data being sent
+
+    // Send the invoice data to the server using an AJAX request
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/sub_inv/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Invoice submitted successfully!');
+                // Optionally, you can show a success message or redirect the user
+            } else {
+                console.error('Failed to submit invoice.');
+                // Display the error message
+                const errorMessage = JSON.parse(xhr.responseText).error;
+                console.error('Error message:', errorMessage); // Log the error message for debugging
+                displayModal(errorMessage);
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify(invoiceData)); // Send the invoice data as JSON
+}
+
+
+
+
+
+
+
+
+
+
+    // Function to submit order
+    function submitOrder() {
+        // Collect data from the customer and product tables
+        const customerTableRows = document.querySelectorAll('#customer_table_body tr');
+        const productTableRows = document.querySelectorAll('#product_table_body tr');
+
+        // Get the current date and time in the local timezone
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const hours = String(currentDate.getHours()).padStart(2, '0');
+        const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+        const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+        // Format the date and time string
+        const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+        // Initialize an array to store order data for multiple products
+        const ordersData = [];
+        let invoiceId = generateInvoiceId();
+
+        // Iterate over each product table row to collect data
+        productTableRows.forEach(row => {
+            const productId = parseInt(row.querySelector('td').textContent);
+            const perKgPrice = parseFloat(row.querySelector('.per-kg-price').value); // Get per kg price from input field
+            const quantity = parseInt(row.querySelector('.quantity-input').value);
+            const subtotal = parseFloat(row.querySelector('.subtotal').textContent.trim().split('$')[1]);
+
+            // Push the order data to the array
+            ordersData.push({
+                customer_id: parseInt(customerTableRows[0].querySelector('td').textContent),
+                product_id: productId,
+                per_kg_price: perKgPrice,
+                quantity: quantity,
+                subtotal: subtotal,
+                order_date: formattedDate,
+                invoice_id: invoiceId
+            });
+        });
+
+        // Send the data to the backend using an AJAX request
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/cart_logic/', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    console.log('Orders submitted successfully!');
+                    // Clear the tables or show a success message
+                    // Optionally, you can redirect the user to a success page
+                } else {
+                    console.error('Failed to submit orders.');
+                    // Display the error message
+                    const errorMessage = JSON.parse(xhr.responseText).error;
+                    displayModal(errorMessage);
+                }
+            }
+        };
+
+        xhr.send(JSON.stringify(ordersData)); // Send the array of order data as JSON
+
+        // Increment the invoice ID for the next order
+        incrementInvoiceId();
+    }
+
+
+
+
+
+
+
+
+
+    
+function submitPayment() {
+
+        
+const payed = parseFloat(document.getElementById('input6').value) || 0;
+const change_amount = parseFloat(document.getElementById('input7').value) || 0;
+const due = parseFloat(document.getElementById('input8').value) || 0;
+const pay_method = document.getElementById('input9').value;
+
+
+const invoiceId = document.querySelector('#invoice_section p').textContent.replace('Invoice ID: ', '').trim();
+
+const customerId = parseInt(document.querySelector('#customer_table_body tr td:first-child').textContent); 
+
+
+
+// Get the current date and time in the local timezone
+const currentDate = new Date();
+const year = currentDate.getFullYear();
+const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+const day = String(currentDate.getDate()).padStart(2, '0');
+const hours = String(currentDate.getHours()).padStart(2, '0');
+const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+// Format the date and time string
+const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+
+
+
+
+
+// Create an object to hold the payment data
+const paymentData = {
+payed: payed,
+change_amount: change_amount,
+due: due,
+pay_method: pay_method,
+invoice_id:invoiceId,
+customer_id:customerId,
+order_date:formattedDate
+
+};
+
+console.log('Sending payment data:', paymentData); // Log the invoice data being sent
+
+// Send the invoice data to the server using an AJAX request
+const xhr = new XMLHttpRequest();
+xhr.open('POST', '/sub_payment/', true);
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.onreadystatechange = function() {
+if (xhr.readyState === XMLHttpRequest.DONE) {
+    if (xhr.status === 200) {
+        console.log('Invoice submitted successfully!');
+        // Optionally, you can show a success message or redirect the user
+    } else {
+        console.error('Failed to submit invoice.');
+        // Display the error message
+        const errorMessage = JSON.parse(xhr.responseText).error;
+        console.error('Error message:', errorMessage); // Log the error message for debugging
+        displayModal(errorMessage);
+    }
+}
+};
+
+xhr.send(JSON.stringify(paymentData)); // Send the invoice data as JSON
+}
+
+
+
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Add customer to table
+        const customerForm = document.getElementById('customer_selection_form');
+        const customerList = document.getElementById('customer_list');
+        const customerTableBody = document.getElementById('customer_table_body');
+        const addCustomerBtn = document.getElementById('add_customer_btn');
+
+        addCustomerBtn.addEventListener('click', function() {
+            const selectedCustomerId = parseInt(customerList.value);
+            const selectedCustomer = Array.from(customerList.options).find(option => parseInt(option.value) === selectedCustomerId);
+
+            if (selectedCustomer) {
+                // Clear existing rows before adding a new one
+                customerTableBody.innerHTML = '';
+
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${selectedCustomerId}</td>
+                    <td>${selectedCustomer.textContent}</td>
+                    <td>${selectedCustomer.dataset.email}</td>
+                    <td>${selectedCustomer.dataset.phone}</td>
+                    <td>${selectedCustomer.dataset.address}</td>
+                    <td><button class="delete-customer-btn">Delete</button></td>
+                `;
+                customerTableBody.appendChild(newRow);
+            }
+        });
+
+        // Delete customer from table
+        customerTableBody.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-customer-btn')) {
+                const row = event.target.closest('tr');
+                row.remove();
+            }
+        });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////Update
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Add event listeners for input fields
+    const shippingCostInput = document.getElementById('input1');
+    const labourCostInput = document.getElementById('input2');
+    const vatInput = document.getElementById('input3');
+    const discountInput = document.getElementById('input4');
+    const payed = document.getElementById('input6');
+
+    shippingCostInput.addEventListener('input', updateTotal);
+    labourCostInput.addEventListener('input', updateTotal);
+    vatInput.addEventListener('input', updateTotal);
+    discountInput.addEventListener('input', updateTotal);
+    payed.addEventListener('input', updateTotal);
+});
+
+
+
+
+// Define a global variable to store the sum of product subtotals
+let productSubtotalSum = 0;
+
+// Function to update the Total field
+function updateTotal() {
+    const shippingCost = parseFloat(document.getElementById('input1').value) || 0;
+    const labourCost = parseFloat(document.getElementById('input2').value) || 0;
+    const vatPercentage = parseFloat(document.getElementById('input3').value) || 0;
+    const discount = parseFloat(document.getElementById('input4').value) || 0;
+    const payed = parseFloat(document.getElementById('input6').value) || 0;
+
+    // Calculate total without discount
+    let total = shippingCost + labourCost;
+
+    // Add product subtotal sum to the overall total
+    total += productSubtotalSum;
+
+    // Calculate VAT amount based on percentage
+    const vatAmount = (total * vatPercentage) / 100;
+    total += vatAmount;
+
+    // Apply discount
+    total -= discount;
+
+    // Update the total field
+    document.getElementById('input5').value = total.toFixed(2);
+
+    let change_amount = payed - total;
+    change_amount = Math.max(0, change_amount);
+
+
+
+    document.getElementById('input7').value = change_amount.toFixed(2);
+
+    let due = total-payed;
+    due = Math.max(0, due);
+
+
+
+
+    document.getElementById('input8').value = due.toFixed(2);
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+    // Function to calculate subtotal
+    function calculateSubtotal(quantity, price) {
+        return quantity * price;
+    }
+
+
+    
+
+    document.addEventListener("DOMContentLoaded", function() {
+    // Add product to table logic
+    const addProductBtn = document.getElementById('add_product_btn');
+    const productTableBody = document.getElementById('product_table_body');
+    const invoiceSection = document.getElementById('invoice_section');
+    //this  is for sum of all product price only
+    const totalElement = document.getElementById('find-sum-totall');
+
+
+    
+
+
+
+    addProductBtn.addEventListener('click', function() {
+        const productList = document.getElementById('product_list');
+        const selectedProductId = parseInt(productList.value);
+        const selectedProduct = Array.from(productList.options).find(option => parseInt(option.value) === selectedProductId);
+        const price = parseFloat(selectedProduct.dataset.price); // Retrieve the price from dataset
+
+        const quantityInDatabase = parseInt(selectedProduct.dataset.quantity);
+
+    if (quantityInDatabase <= 0) {
+        
+        alert('Not enough Quantity!!!');
+        return;
+    }
+
+
+
+       
+
+       
+
+        if (!isNaN(price)) { // Check if price is a valid number
+            if (selectedProduct) {
+
+                const productName = selectedProduct.textContent.split('--')[0]; // Extract product name
+                
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${selectedProductId}</td>
+                    <td>${productName}</td>
+                    <td><input type="number" value="1" min="1" class="quantity-input"></td>
+                    <td><input type="number" value="${price}" min="0" step="1" class="per-kg-price"></td>
+                    <td class="subtotal">$${price.toFixed(2)}</td>
+                    
+                    <td><button class="delete-product-btn">Delete</button></td>
+                    
+
+
+                `;
+                productTableBody.appendChild(newRow);
+
+                // Update the product subtotal sum
+                const quantity = 1; // Initially, quantity is 1
+                const subtotal = calculateSubtotal(quantity, price);
+                productSubtotalSum += subtotal;
+
+                console.log(productSubtotalSum)
+                updateTotal();
+//this  is for sum of all product price only
+                totalElement.textContent = ` $${productSubtotalSum.toFixed(2)}`;
+
+                // Update the total
+                
+            }
+        } else {
+            console.error('Invalid price data');
+        }
+    });
+
+
+
+
+
+        // Update subtotal when quantity or per kg price changes
+    productTableBody.addEventListener('input', function(event) {
+        const target = event.target;
+        if (target.classList.contains('quantity-input') || target.classList.contains('per-kg-price')) {
+            const row = target.closest('tr');
+            const quantity = parseInt(row.querySelector('.quantity-input').value);
+            const perKgPrice = parseFloat(row.querySelector('.per-kg-price').value);
+            const subtotalCell = row.querySelector('.subtotal');
+
+            if (!isNaN(quantity) && !isNaN(perKgPrice)) {
+                const subtotal = calculateSubtotal(quantity, perKgPrice);
+                subtotalCell.textContent = `$${subtotal.toFixed(2)}`;
+
+                // Recalculate the product subtotal sum
+                recalculateProductSubtotalSum();
+
+                // Update the total
+                updateTotal();
+
+                //this  is for sum of all product price only
+                totalElement.textContent = `$${productSubtotalSum.toFixed(2)}`;
+            }
+        }
+    });
+
+        
+        // Delete product from table
+productTableBody.addEventListener('click', function(event) {
+    if (event.target.classList.contains('delete-product-btn')) {
+        const row = event.target.closest('tr');
+        const subtotal = parseFloat(row.querySelector('.subtotal').textContent.trim().substring(1)); // Get the subtotal of the deleted product
+        row.remove();
+
+        // Subtract the subtotal of the deleted product from the product subtotal sum
+        productSubtotalSum -= subtotal;
+
+        // Update the total
+        updateTotal();
+
+        //this  is for sum of all product price only
+        totalElement.textContent = `$${productSubtotalSum.toFixed(2)}`;
+    }
+});
+
+        // Function to recalculate the product subtotal sum
+    function recalculateProductSubtotalSum() {
+        productSubtotalSum = 0;
+        const productSubtotals = document.querySelectorAll('#product_table_body .subtotal');
+        productSubtotals.forEach(subtotal => {
+            productSubtotalSum += parseFloat(subtotal.textContent.trim().substring(1)); // Remove $ sign and parse as float
+
+        });
+
+        //this  is for sum of all product price only
+        totalElement.textContent = `$${productSubtotalSum.toFixed(2)}`;
+    }
+
+
+
+    });
+
+
+
+
+
+
+    ////Dip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+//-----------------DOnt modify below code----------------
+
+// Display modal with error message
+function displayModal(message) {
+    const modal = document.getElementById('myModal');
+    const modalMessage = document.getElementById('modal-message');
+    modalMessage.textContent = message;
+    modal.style.display = 'block';
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    const closeButton = document.getElementsByClassName("close")[0];
+    closeButton.onclick = function() {
+        modal.style.display = "none";
+    }
+}
+
+
+
+
+
+    
+    
+    // Function to get current date
+    function getCurrentDate() {
+        let now = new Date();
+        return now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // Function to get current time
+    function getCurrentTime() {
+        let now = new Date();
+        return now.toLocaleTimeString();
+    }
+
+    // Function to update date
+    function updateDate() {
+        let dateElement = document.getElementById('date');
+        dateElement.textContent = getCurrentDate();
+    }
+
+    // Function to update time
+    function updateTime() {
+        let timeElement = document.getElementById('time');
+        timeElement.textContent = getCurrentTime();
+    }
+
+    // Update date and time initially
+    updateDate();
+    updateTime();
+
+    // Update date and time every second
+    setInterval(() => {
+        updateDate();
+        updateTime();
+    }, 1000);
+
+
+    
+
+
+
+
+
+    //////Done
+    
+    //////Done
+    
+    //////Done
+    
+    //////Done
+    
+    //////Done
+    
+    //////Done
+    
+    //////Done
+    
+    //////Done
+
+    
+
+
+
+</script>
+
+    
+
+
+</body>
+</html>
+
+
+

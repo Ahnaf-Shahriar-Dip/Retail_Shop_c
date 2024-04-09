@@ -1,0 +1,84 @@
+
+
+
+
+
+
+
+body {
+    background-color: #0073e7;
+    color: rgb(222, 13, 13);
+    text-align: center;
+    padding-top: 50px;
+    margin: 0;
+    /* Remove default body margin */
+}
+
+.navbar {
+    background-color: rgb(71, 61, 61);
+    /* Bootstrap's primary color */
+    border-bottom: 1px solid #000000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 2em;
+    font-weight: bold;
+    color: rgb(235, 16, 16);
+}
+
+.navbar-toggler-icon {
+    background-color: rgb(138, 27, 27);
+}
+
+.navbar-nav {
+    text-align: center;
+    flex-direction: column;
+}
+
+.nav-item {
+    margin: 5px 5px; /* Adjusted margin to create space */
+}
+
+.nav-link {
+    font-size: 1.2em;
+    color: rgb(224, 24, 24);
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #5c4d1f;
+    /* Bootstrap's warning color on hover */
+}
+
+.container-fluid {
+    padding: 1rem;
+    margin-top: 70px;
+    /* Adjusted margin to accommodate the fixed-top navbar */
+}
+
+.welcome-text {
+    font-size: 2.8em;
+    font-weight: bold;
+    color: rgb(33, 29, 29);
+    margin-bottom: 20px;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
+}
+
+.btn-group .btn {
+    margin: 5px;
+}
+
+/* Add space between dropdown buttons */
+.btn-group .dropdown {
+    margin-right: 10px;
+}

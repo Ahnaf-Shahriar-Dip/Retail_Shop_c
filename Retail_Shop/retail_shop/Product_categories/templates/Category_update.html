@@ -1,0 +1,59 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{%block start%}
+
+
+       
+
+        
+
+
+<div class="container mt-5">
+
+
+
+    <form class ="col-6 mx-auto card p-3 shadow lg"  method="POST">
+
+        {% csrf_token %}
+        <h2> Update Product_Category</h2>
+        <hr>
+
+        
+
+
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Category ID  </label>
+            <input name="category_id" value='{{Product_fun.0}}'  readonly required type="number" class="form-control" >
+            
+        </div>
+        
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Category name</label>
+          <input name="category_name"value='{{Product_fun.1}}' required type="text" class="form-control" >
+          
+        </div>
+
+
+      
+       <button type="submit" class="btn btn-success">Update Product_categories</button>
+    </form>
+
+
+ 
+
+        <script src="" async defer></script>
+ 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,104 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.8); /* Set the background color to black with 80% opacity */
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+    
+        h2 {
+            color: #007bff;
+        }
+    
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+    
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+
+
+
+
+
+
+
+<body>
+    <div class="container">
+        <h2 class="mb-4">Sells Details Without Additional Cost and Discount</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sells ID</th>
+                    <th>Invoice Id</th>            
+                    <th>Customer Name</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                    <th> Date and Time </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in order_details %}
+                    <tr>
+                        <td>{{ order.0 }}</td>
+                        <td>{{ order.2 }}</td>
+                        <td>{{ order.1 }}</td> 
+                        <td>{{ order.3 }}</td>
+                        <td>{{ order.4 }}</td>
+                        <td>{{ order.5 }}</td>
+                        <td>{{ order.6 }}</td>
+                        <td>{{ order.7 }}</td>
+                        <td>{{ order.8 }}</td>
+                        <td>{{ order.9 }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

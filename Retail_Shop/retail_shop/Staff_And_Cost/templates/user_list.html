@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>User List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Staff</th>
+                <th>Admin</th>
+                <th>User Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{% if user.is_staff %}Yes{% else %}No{% endif %}</td>
+                <td>{% if user.is_superuser %}Yes{% else %}No{% endif %}</td>
+                <td>{{ user.username }}</td>
+                <td>
+                    <form method="POST" action="{% url 'update_user' user.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="toggle_staff">
+                        <button type="submit">Toggle Staff</button>
+                    </form>
+                    <form method="POST" action="{% url 'update_user' user.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="toggle_admin">
+                        <button type="submit">Toggle Admin</button>
+                    </form>
+                    <form method="POST" action="{% url 'update_user' user.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="delete">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

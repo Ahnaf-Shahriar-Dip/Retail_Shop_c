@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+
+
+
+        #dip_cus_info {
+    color: #2980b9;
+    display: flex;
+    margin-top: 32px;
+    margin-bottom: 7px;
+        }
+
+
+        #inv-span {
+    margin-top: 60px;
+    font-size: 22px;
+    color: black;
+}
+
+
+
+        h2, h3 {
+            margin-top: 20px;
+        }
+        p {
+            margin: 5px 0;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+            color: #333;
+        }
+        #invoice_section, #invoice-info, button {
+            margin: 10px;
+        }
+        #right_part {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .dip_p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .dip_p_totalAmount {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        @media print {
+            .container {
+                border: none;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+   
+
+
+    <div class="container">
+
+        <header>
+            <h2 style="text-align: center;">M/S. Dapunia Iron Store</h2>
+            <p style="text-align: center;">Station Road, Jamalpur-2000</p>
+            <p style="text-align: center;">Phone: 01715372551</p>
+        </header>
+
+        
+        
+        <div id="invoice_section">
+            <p id="inv-span">Invoice ID: <span id="invoiceId"></span></p>
+        </div>
+        
+        <div id="invoice-info">
+            <!-- Table goes here -->
+
+            
+        </div>
+
+        
+
+        
+        <div>
+            <button id="printButton">Print</button>
+            <button id="downloadButton">Download PDF</button>
+        </div>
+    </div>
+
+
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const invoiceInfoDiv = document.getElementById('invoice-info');
+            const invoiceIdSpan = document.getElementById('invoiceId');
+
+            
+
+            // Retrieve query parameters from the URL
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+
+            // Initialize an empty array to store product information
+            const productInfo = [];
+
+            // Variables to store other invoice details
+            let sentDate;
+            let shippingCost;
+            let laborCost;
+            let vat;
+            let discount;
+            let total;
+            let payed;
+            let changeAmount;
+            let due;
+            let paymentMethod;
+            let customerId;
+            let customerName;
+            let customerEmail;
+            let customerPhone;
+            let customerAddress;
+
+            let totalAmount;
+            let invoiceId; // Declare invoiceId variable
+
+            // Iterate through the query parameters and extract product information
+            urlParams.forEach((value, key) => {
+    if (key.startsWith('productId')) {
+        // Construct an object with product information
+        const product = {
+            productId: value,
+            productName: urlParams.get(`productName${key.slice(9)}`),
+            quantity: urlParams.get(`quantity${key.slice(9)}`),
+            price: urlParams.get(`price${key.slice(9)}`),
+            subtotal: urlParams.get(`subtotal${key.slice(9)}`),
+            invoiceId: urlParams.get(`invoiceId${key.slice(9)}`)
+        };
+        // Push the product object to the productInfo array
+        productInfo.push(product);
+    } else if (key === 'date') {
+        sentDate = value;
+    } else if (key === 'shippingCost') {
+        shippingCost = value;
+    } else if (key === 'laborCost') {
+        laborCost = value;
+    } else if (key === 'vat') {
+        vat = value;
+    } else if (key === 'discount') {
+        discount = value;
+    } else if (key === 'total') {
+        total = value;
+    } else if (key === 'payed') {
+        payed = value;
+    } else if (key === 'changeAmount') {
+        changeAmount = value;
+    } else if (key === 'due') {
+        due = value;
+    } else if (key === 'paymentMethod') {
+        paymentMethod = value;
+    } else if (key === 'customerId') {
+        customerId = value;
+    } else if (key === 'customerName') {
+        customerName = value;
+    } else if (key === 'customerEmail') {
+        customerEmail = value;
+    } else if (key === 'customerPhone') {
+        customerPhone = value;
+    } else if (key === 'customerAddress') {
+        customerAddress = value;
+    } else if (key === 'invoiceId') {
+        invoiceId = value; 
+        // Ensure that invoiceId is assigned here
+    }else if (key === 'totalAmount') {
+        totalAmount = value; 
+        
+    }
+});
+
+
+
+            // Generate invoice HTML content
+            let invoiceHTML = `
+                <h2 id ="dip_cus_info">Customer Information</h2>
+                <p>Name: ${customerName}</p>
+                <p>Email: ${customerEmail}</p>
+                <p>Phone: ${customerPhone}</p>
+                <p>Address: ${customerAddress}</p>
+
+                <!--
+                <h2 id ="dip_inv_info">Invoice Details</h2>
+
+            -->
+
+               
+
+
+                <p>Date: ${sentDate}</p>
+                <p>Payment Method: ${paymentMethod}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <!-- Table body will be dynamically populated here -->
+                    </tbody>
+                </table>
+
+                <div id='right_part'>
+                <p class="dip_p_totalAmount">Sub Totall: ${totalAmount}</p> 
+                <p class="dip_p">-------------------------</p>
+
+                
+                <p class="dip_p">Shipping Cost: $${shippingCost}</p>
+                <p class="dip_p">Labor Cost: $${laborCost}</p>
+                <p class="dip_p">VAT: ${vat}%</p>
+                <p class="dip_p">Discount: $${discount}</p>
+
+                <p class="dip_p">-------------------------</p>
+                <p class="dip_p">Total: $${total}</p>
+                <p class="dip_p">-------------------------</p>
+                <p class="dip_p">Paid: $${payed}</p>
+                <p class="dip_p">Change: $${changeAmount}</p> 
+                <p class="dip_p">Due: $${due}</p>
+
+                </div>
+            `;
+
+            // Set invoice HTML content to the invoice-info div
+            invoiceInfoDiv.innerHTML = invoiceHTML;
+
+            // Populate table body
+            const tbody = document.getElementById('tbody');
+            productInfo.forEach(product => {
+                const row = document.createElement('tr');
+
+//ok ok
+
+                //const invoiceIdCell = document.createElement('td'); // Create a separate td element for invoiceId
+                //invoiceIdCell.textContent = product.invoiceId; // Set the invoiceId value
+
+               
+
+                const hi=invoiceIdSpan.textContent = product.invoiceId;
+
+                console.log(hi)
+//ok ok
+
+                row.innerHTML = `
+                    
+                    <td>${product.productName}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.price}</td>
+                    <td>${product.subtotal}</td>
+                    
+                `;
+                tbody.appendChild(row);
+            });
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Your existing JavaScript code here
+            
+            // Print button event listener
+            document.getElementById('printButton').addEventListener('click', function() {
+                window.print();
+            });
+
+            // Download button event listener
+            document.getElementById('downloadButton').addEventListener('click', function() {
+                // Use html2pdf to generate PDF from the invoice-info div
+                const invoiceInfoDiv = document.getElementById('invoice-info');
+                html2pdf().from(invoiceInfoDiv).save();
+            });
+        });
+
+
+
+
+//Done
+//Done
+//Done
+//Done
+
+
+
+
+    </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+
+</body>
+</html>
+
+
+<!--Done-->

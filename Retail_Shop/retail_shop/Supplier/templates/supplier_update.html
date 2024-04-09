@@ -1,0 +1,65 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{%block start%}
+
+
+       
+
+        
+
+
+<div class="container mt-5">
+
+
+
+    <form class ="col-6 mx-auto card p-3 shadow lg"  method="POST">
+
+        {% csrf_token %}
+        <h2> Update Supplier</h2>
+        <hr>
+
+        
+
+
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Supplier ID  </label>
+            <input name="Supplier_Id" value='{{results.0}}'  readonly required type="number" class="form-control" >
+            
+        </div>
+        
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Supplier name</label>
+          <input name="Supplier_Name"value='{{results.1}}' required type="text" class="form-control" >
+          
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Supplier Phone No</label>
+            <input name="Phone_number"value='{{results.2}}' required type="text" class="form-control" >
+            
+          </div>
+
+
+      
+       <button type="submit" class="btn btn-success">Update Supplier</button>
+    </form>
+
+
+ 
+
+        <script src="" async defer></script>
+ 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

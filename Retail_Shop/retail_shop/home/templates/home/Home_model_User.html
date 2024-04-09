@@ -1,0 +1,81 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{% block start %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'dash_boar.css' %}"> 
+
+    <style>
+        /* CSS styles for the containers */
+        .container {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-left: -300px;
+    margin-right: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #956767;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 1200px;
+    height: 300px;
+}
+
+        /* CSS styles for the sections */
+        .section {
+            margin-top: 40px; /* Added margin-top to push sections down */
+            margin-bottom: 20px;
+            margin-left: 362px;
+        }
+
+
+
+        #below{
+
+            margin-top: 100px;
+            width: 2000px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="below">
+
+    <!-- First Section -->
+    <section class="section">
+        <div class="container">
+            <h2>Section 1</h2>
+            <p>This is the content of the first section.</p>
+        </div>
+    </section>
+
+    <!-- Second Section -->
+    <section class="section">
+        <div class="container">
+            <h2>Section 2</h2>
+            <p>This is the content of the second section.</p>
+        </div>
+    </section>
+
+</div>
+
+    <!-- JavaScript code can be added here if needed -->
+
+</body>
+</html>
+
+
+
+{% endblock %}
+
+
+

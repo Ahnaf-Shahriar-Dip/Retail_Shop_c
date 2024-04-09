@@ -1,0 +1,128 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{%block start%}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.8); /* Set the background color to black with 80% opacity */
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+    
+        h2 {
+            color: #007bff;
+        }
+    
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+    
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+
+
+        
+    
+
+
+<a href="{% url 'view_supplier' %}" class="btn btn-outline-warning">Go to Back ?</a>
+
+
+   
+
+
+<div class="container mt-5">
+    <table class="table mt-6  shadow lg" >
+        <thead>
+          <tr>
+            <th scope="col">#product id</th>
+            <th scope="col"> supplier id</th>
+            <th scope="col">productname</th>
+            <th scope="col"> product description</th> 
+            <th scope="col"> suppliername</th>
+            <th scope="col"> phone number</th>
+            
+            
+            
+          </tr>
+        </thead>
+       
+        
+        <tbody>
+    
+            {%for Product_fun in results%}
+            
+          <tr>
+
+            <td>{{Product_fun.0}}</td>
+            <td>{{Product_fun.3}}</td>
+            <td>{{Product_fun.1}}</td>
+
+            <td>{{Product_fun.2}}</td>
+            <td>{{Product_fun.4}}</td>
+            <td>{{Product_fun.5}}</td>
+            
+
+            
+          </tr>
+    
+          {% endfor %}
+
+
+         
+        </tbody>
+      </table>
+
+
+
+</div>
+    
+ 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

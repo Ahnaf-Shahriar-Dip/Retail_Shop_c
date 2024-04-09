@@ -1,0 +1,342 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+        <title>crud dashboard</title>
+
+        {% load static %}
+        <!-- Reference your static CSS file -->
+        <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'custom.css' %}">
+	    <!-- Bootstrap CSS -->
+        
+		
+		
+		<!--google fonts -->
+	    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+	
+	
+	   <!--google material icon-->
+      <link href="https://fonts.googleapis.com/css2?family=Material+Icons"rel="stylesheet">
+	  <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+
+
+    {% block start %}
+
+	
+
+	
+
+	
+
+    {% endblock %}
+	
+	
+
+
+	<div id="dip_small_nav">
+        <!-- ... your existing sidebar code ... -->
+
+        {% if user.is_authenticated %}
+    {% if user.is_superuser %}
+        <h3 style="text-align: center;">Welcome to Retail Shop Management. You are logged in as Admin. Name: {{ user.username }}</h3>
+    {% elif user.is_staff %}
+        <h3 style="text-align: center;">Welcome to Retail Shop Management. {{ user.username }} is logged in as Staff.</h3>
+    {% else %}
+        <h3 style="text-align: center;">Welcome to Retail Shop Management. Normal User {{ user.username }} is logged in.</h3>
+    {% endif %}
+    {% endif %}
+
+
+		<div id="section_pos">
+
+			<div id="datetime" class="datetime">
+				<div class="date" id="date"></div>
+				<div class="time" id="time"></div>
+			</div>
+
+
+			<div id="goto_pos">
+				<a id="flex_need" href="/cart_logic/">
+					<img id="pos_img" src="{% static 'working.jpg' %}" alt="POS Image" >
+					<P id="bold_point">Go to Point Of Sells</P>
+
+				</a>
+			</div>
+
+		</div>
+    </div>
+
+
+
+<div class="wrapper">
+	
+     
+	  <div class="body-overlay"></div>
+	 
+	 <!-------sidebar--design------------>
+	 
+	 <div id="sidebar">
+	    <div class="sidebar-header">
+		   <h3><img src="{% static 'mypic1.png' %}" class="img-fluid"/><span>Ahnaf Shahriar Dip</span></h3>
+		</div>
+		<ul class="list-unstyled component m-0">
+		  <li class="Not_active">
+		  <a href="/" class="dashboard"><i class="material-icons">dashboard</i>Home </a>
+		  </li>
+		  
+		  <li class="dropdown">
+		  <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <i class="material-icons">aspect_ratio</i>Products
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+			 <li><a href="/add_product/">Add Product</a></li>
+		     <li><a href="/view_product/">View Product</a></li>
+			 
+			 
+		  </ul>
+		  </li>
+		  
+		  
+		   <li class="dropdown">
+		  <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <i class="material-icons">apps</i>Category
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu2">
+		     <li><a href="/add_product_category/">Add Product Category</a></li>
+			 
+			
+		  </ul>
+		  </li>
+		  
+		   <li class="dropdown">
+		  <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <i class="material-icons">equalizer</i>Sell
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu3">
+		     <li><a href="/cart_logic/">POS</a></li>
+
+			 {% if request.user.is_superuser %}
+
+			 <li><a href="/Actual_Sells/">Totall Sell</a></li>
+			 <li><a href="/View_Total_Sells/">Total Sells with out additional Cost</a></li>
+			 <li><a href="/customer_with_highest_purchase/">Highest buyer</a></li>
+
+			 {% endif %}
+		  </ul>
+		  </li>
+		  
+		  
+		   <li class="dropdown">
+		  <a href="#homeSubmenu4" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <i class="material-icons">extension</i>Customer
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu4">
+		     <li><a href="/add_customer/">ADD Customer</a></li>
+			 <li><a href="/view_customers/">View Customer</a></li>
+			 <li><a href="/customer_account_view/">Customer Lifetime Sumarry</a></li>
+		  </ul>
+		  </li>
+
+
+		  {% if request.user.is_superuser %}
+		  <li class="dropdown">
+			<a href="#homeSubmenu6" data-toggle="collapse" aria-expanded="false" 
+			class="dropdown-toggle">
+			<i class="material-icons">grid_on</i>Payment
+			</a>
+			<ul class="collapse list-unstyled menu" id="homeSubmenu6">
+			   <li><a href="/view_payment/">See Payment Information</a></li>
+			   
+			</ul>
+			</li>
+			{% endif %} 
+
+			{% if request.user.is_superuser %}
+		  
+		   <li class="dropdown">
+		  <a href="#homeSubmenu5" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <i class="material-icons">border_color</i>Staff
+		  </a>
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu5">
+		     <li><a href="/staff/">Add and View Staff</a></li>
+			 
+		  </ul>
+		  </li>
+		  {% endif %} 
+		  
+		  
+		  
+		  
+		  <li class="dropdown">
+		  <a href="#homeSubmenu7" data-toggle="collapse" aria-expanded="false" 
+		  class="dropdown-toggle">
+		  <i class="material-icons">content_copy</i>Expenses
+		  </a>
+
+		  <ul class="collapse list-unstyled menu" id="homeSubmenu7">
+
+
+		    <li><a href="/add_expense/">Add and View All Expenses</a></li>
+			 
+			 
+		  </ul>
+		  </li>
+		  
+		  {% if user.is_superuser %}
+		  <li class="">
+		  <a href="/user_list/" class=""><i class="material-icons">date_range</i>USERS</a>
+		  </li>
+		  {% endif %}
+
+
+
+		   
+		  
+
+		  <li class="">
+			<a href="/logout/" class=""></i>Logout </a>
+			</li>
+		
+		</ul>
+	 </div>
+	 
+		 
+		 
+	  </div>
+   
+</div>
+
+
+    
+   <script src="{% static 'jquery-3.3.1.slim.min.js' %}"></script>
+   <script src="{% static 'popper.min.js' %}"></script>
+   <script src="{% static 'bootstrap.min.js' %}"></script>
+   <script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+  
+  
+  <script type="text/javascript">
+       $(document).ready(function(){
+	      $(".xp-menubar").on('click',function(){
+		    $("#sidebar").toggleClass('active');
+			$("#content").toggleClass('active');
+		  });
+		  
+		  $('.xp-menubar,.body-overlay').on('click',function(){
+		     $("#sidebar,.body-overlay").toggleClass('show-nav');
+		  });
+		  
+	   });
+
+
+
+
+	   
+    
+    
+    // Function to get current date
+    function getCurrentDate() {
+        let now = new Date();
+        return now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }
+
+    // Function to get current time
+    function getCurrentTime() {
+        let now = new Date();
+        return now.toLocaleTimeString();
+    }
+
+    // Function to update date
+    function updateDate() {
+        let dateElement = document.getElementById('date');
+        dateElement.textContent = getCurrentDate();
+    }
+
+    // Function to update time
+    function updateTime() {
+        let timeElement = document.getElementById('time');
+        timeElement.textContent = getCurrentTime();
+    }
+
+    // Update date and time initially
+    updateDate();
+    updateTime();
+
+    // Update date and time every second
+    setInterval(() => {
+        updateDate();
+        updateTime();
+    }, 1000);
+
+
+
+
+	
+
+  </script>
+  
+  
+
+
+
+  </body>
+  
+  </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

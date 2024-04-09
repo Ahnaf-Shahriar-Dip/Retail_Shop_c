@@ -1,0 +1,7 @@
+virtualenv .env
+.env/Scripts/activate
+
+
+django-admin startproject Newproject
+activate
+python manage.py runserver

@@ -1,0 +1,296 @@
+body {
+    background-color: #254d5d;/* Light gray background */
+    font-family: 'Arial', sans-serif;
+}
+
+
+
+h2 {
+    color: #007bff;
+}
+
+
+
+.dip_cn{
+
+
+    background-color: #b5cfec;
+    margin-right: 100px;
+    margin-left: 47px;
+    margin-bottom: 400px;
+    
+    
+    
+}
+
+
+
+
+
+
+
+table {
+    width: 100%;
+    margin-top: 50px;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+th, td {
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #000000;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #e2e6ea; /* Light blue background on hover */
+    cursor: pointer;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: transparent; /* Override default Bootstrap hover style */
+}
+
+.message-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+}
+
+.circle-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(61, 122, 57, 0.702);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkmark {
+    width: 40px;
+    height: 80px;
+    border: solid white;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    animation: checkmarkAnimation 0.9s ease forwards;
+    opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* Keyframes for checkmark animation */
+@keyframes checkmarkAnimation {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: rotate(45deg) scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+
+
+.search-container {
+    text-align: center;
+}
+
+.search-box {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+}
+
+#searchInput {
+    width: calc(100% - 50px); /* Adjusted width to accommodate the search button */
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    background-color: #f3f4f6; /* Light gray background */
+    color: #333;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-left: -110px;
+}
+
+#searchInput:focus {
+    outline: none;
+    background-color: #fff; /* White background on focus */
+}
+
+.search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background-color: #007bff; /* Blue search button */
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+
+
+
+
+
+/*ADD Product*/
+
+.add_product_Container {
+    background-color: #84a5a2;
+    padding: 30px;
+    margin-top: 123px;
+    margin-left: 200px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+    border-radius: 30px;
+    width: 817px;
+    height: 696px;
+}
+
+#add_pro_body{
+
+    background-color: #342d2d;
+}
+
+
+.mb-3 {
+    margin-right: 38px;
+    margin-left: 45px;
+}
+
+
+#add_pro{
+
+    text-align: center;
+    margin-left: -62px;
+    color:black ;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+
+    margin-left: 47px;
+}
+
+
+
+
+
+
+
+
+.custom-container {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 108px;
+    margin-bottom: -228px;
+    max-width: 384px;
+    max-height: 363px;
+    margin-left: 47px;
+    margin-right: auto;
+}
+        
+    
+        .custom-container h2 {
+            color: #007bff;
+        }
+    
+        
+    
+        .custom-form-group {
+            margin-bottom: 20px;
+        }
+    
+        .custom-form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    
+        .custom-button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .custom-button:hover {
+            background-color: #218838;
+        }
+
+        
+    .search-box {
+    transition: all 0.3s ease;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    margin-left: 248px;
+
+    
+    }
+
+        .search-box-hover {
+            transform: scale(1.1);
+            cursor: pointer;
+
+
+        }
+
+
+        .search-container{
+            text-align: center;
+
+        }
+
+
+
+        .msg_1 {
+    padding: 0px;
+    margin-top: 6px;
+    text-align: center;
+    margin-right: -184px;
+    margin-bottom: -22px;
+    color: red;
+}

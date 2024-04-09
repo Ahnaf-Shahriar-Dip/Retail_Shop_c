@@ -1,0 +1,146 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{%block start%}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.8); /* Set the background color to black with 80% opacity */
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+    
+        h2 {
+            color: #007bff;
+        }
+    
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+    
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+
+
+
+
+
+
+
+
+
+ 
+<form class="d-flex" role="search" style="margin-left: +300px;">
+    <a href="/" class="btn btn-outline-warning btn-lg btn-login" type="submit">Home</a>
+</form>
+
+
+
+
+
+<div class="container mt-5 bg-dark">
+
+
+
+    <form class ="col-9 mx-auto card p-3 shadow lg"  method="POST">
+    
+
+        {% csrf_token %}
+        <h2> Add Supplier</h2>
+        
+        <hr>
+
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Supplier ID</label>
+            <input name="Supplier_Id" required type="number" class="form-control" >
+            
+        </div>
+        
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Supplier name</label>
+          <input name="Supplier_Name" required type="text" class="form-control" >
+          
+        </div>
+    
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Supplier Phn No</label>
+          <input name="Phone_number" required type="number" class="form-control" >
+          
+        </div>
+
+
+
+
+        
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <!-- Display Django messages -->
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li class="{% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        
+            
+
+    
+        
+       <button type="submit" class="btn btn-success">Submit Product</button>
+    
+
+    <hr>
+    
+
+
+ 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

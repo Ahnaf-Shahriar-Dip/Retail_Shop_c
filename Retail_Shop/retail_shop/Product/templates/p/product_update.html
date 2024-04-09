@@ -1,0 +1,62 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{%block start%}
+
+
+        
+
+
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow lg" method="POST">
+        {% csrf_token %}
+        <h2>Update Product</h2>
+        <hr>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product ID</label>
+            <input name="product_id" value="{{ results.product_id }}" readonly required type="number" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product name</label>
+            <input name="product_name" value="{{ results.product_name }}" required type="text" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Product details</label>
+            <textarea class="form-control" name="product_description" required>{{ results.product_description }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Product quantity</label>
+            <input name="product_quantity" value="{{ results.product_quantity }}" required type="number" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Price</label>
+            <input name="product_price" value="{{ results.product_price }}" required type="text" step="any" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Product</button>
+    </form>
+</div>
+    
+
+        
+        
+
+        <script src="" async defer></script>
+ 
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

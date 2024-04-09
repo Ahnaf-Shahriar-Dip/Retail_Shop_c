@@ -1,0 +1,80 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{%block start%}
+
+
+
+{% load static %}
+    
+<link rel="stylesheet" href="{% static 'Product_Style.css' %}">
+
+
+
+
+
+
+
+
+
+
+
+<form class="add_product_Container" method="POST">
+  {% csrf_token %}
+  <h2 id="add_pro">Add Product</h2>
+  
+
+  <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Product ID</label>
+      <input name="product_id" required type="number" class="form-control">
+  </div>
+
+  <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Product name</label>
+      <input name="product_name" required type="text" class="form-control">
+  </div>
+
+  <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Product Description</label>
+      <textarea class="form-control" name="product_description" required></textarea>
+  </div>
+
+  <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Product Quantity</label>
+      <input name="product_quantity" required type="number" class="form-control">
+  </div>
+
+  <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Product Price</label>
+      <input name="product_price" required type="text" step="any" class="form-control">
+  </div>
+
+ <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Category Name</label>
+    <select name="category_name" required class="form-control">
+        <option value="">-- Select Categorys --</option>
+        {% for category in categories %}
+            <option value="{{ category.category_name }}">{{ category.category_id}}-{{ category.category_name }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+  <button type="submit" class="btn btn-success">Submit Product</button>
+  
+</form>
+
+
+    
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

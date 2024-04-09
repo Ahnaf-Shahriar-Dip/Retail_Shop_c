@@ -1,0 +1,136 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{% block start %}
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.8); /* Set the background color to black with 80% opacity */
+            font-family: 'Arial', sans-serif;
+        }
+    
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+        }
+    
+        h2 {
+            color: #007bff;
+        }
+    
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+    
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+    
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+
+
+
+
+
+
+
+
+
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">Sells Details</h2>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Sells ID</th>
+                    <th>Customer Name</th>
+                    <th>Product Name</th>
+                    
+                    <th>Quantity</th>
+                    <th>Per Kg Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                    {% for order in order_details %}
+                        <tr>
+                            <td>{{ order.purchaseid }}</td>
+                            <td>{{ order.customer_name }}</td>
+                            <td>{{ order.product_name }}</td>
+                            
+                            <td>{{ order.quantity }}</td>
+                            <td>{{ order.per_kg_price }}</td>
+                            <td>{{ order.subtotal }}</td>
+                        </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    
+
+    <div class="d-flex justify-content-center mt-3">
+        <form class="d-flex mr-5" role="search">
+            <a href="/purchase_product/" class="btn btn-outline-warning btn-lg btn-login" type="submit">Sells another Product</a>
+        </form>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Bootstrap JS and Popper.js CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+{% endblock %}

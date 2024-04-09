@@ -1,0 +1,155 @@
+{% extends "C:\Users\Dip\Desktop\Retail_Shop_c\Retail_Shop\retail_shop\home\templates\home\base.html" %}
+
+{% block start %}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Product</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            background-color: rgba(0, 0, 0, 0.8); /* Set the background color to black with 80% opacity */
+            font-family: 'Arial', sans-serif;
+        }
+    
+        
+
+
+
+.view_cus_con{
+
+    margin: 100px;
+    background-color: #adc5c0;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+
+
+
+        
+
+table {
+    width: 100%;
+    margin-top: 50px;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+th, td {
+    border: 1px solid #be8408;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #000000;
+    color: #fff;
+}
+
+
+
+tbody tr:hover {
+    background-color: #e2e6ea; /* Light blue background on hover */
+    cursor: pointer;
+}
+
+.table-hover tbody tr:hover td {
+    background-color: transparent; /* Override default Bootstrap hover style */
+}
+
+    
+
+    </style>
+</head>
+
+
+
+
+
+
+
+<div class="view_cus_con">
+    <h2>Generate Invoice</h2>
+
+    <form action="{% url 'invoice_for_customers' %}" method="get">
+
+        <!-- Customer ID Input -->
+        <div class="form-group">
+            <label for="customer_id">Customer ID:</label>
+            <input type="number" class="form-control" name="customer_id" id="customer_id" required>
+        </div>
+
+        <!-- Order Date Input -->
+        <div class="form-group">
+            <label for="order_date">Order Date:</label>
+            <input type="date" class="form-control" name="order_date" id="order_date" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Generate Invoice</button>
+    </form>
+</div>
+
+
+
+
+<div class="view_cus_con">
+    <h2>View Customers</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Customer ID</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Customer Address</th>
+                <th scope="col">Customer Phone</th>
+                <th scope="col">Customer Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.0 }}</td>
+                    <td>{{ result.1 }}</td>
+                    <td>{{ result.2 }}</td>
+                    <td>{{ result.3}}</td>
+                    <td>{{ result.4}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+<!-- Include Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
