@@ -69,6 +69,7 @@ def cart_logic(request):
 
                  # Aggregate profit for orders with the same invoice ID
             order_profits = Orders.objects.values('invoice_id').annotate(total_profit=Sum('profit'))
+            
 
             # Update the corresponding invoice records with aggregated profit
             for order_profit in order_profits:
