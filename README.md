@@ -21,6 +21,8 @@ we used MariaDB mySQL.
 
 
 #Project Features
+
+
 For any offline business, Management online, Only admin and stuff can sell.
 
 Role permission -Staff/Admin panel (Different views for stuff and admin).
