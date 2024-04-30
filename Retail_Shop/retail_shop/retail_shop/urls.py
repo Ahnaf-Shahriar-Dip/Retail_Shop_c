@@ -29,6 +29,8 @@ from Supplier.views import*
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
 urlpatterns = [
     #path('' , home ,name="home"),
     path('add_product/',add_product,name="Receipe"),
@@ -41,7 +43,7 @@ urlpatterns = [
 
 
 
-    path ('login/', login_page ,name="login_page"),
+    path ('', login_page ,name="login_page"),
 
 
     path ('register/', register_page ,name="register_page"),
@@ -133,7 +135,11 @@ urlpatterns = [
     
 
     path('view_payment/', view_payment, name='view_payment'),
-    path('', index, name='index'),#home page
+
+
+    path('index/', index, name='index'),#home page
+
+    
 
 
 

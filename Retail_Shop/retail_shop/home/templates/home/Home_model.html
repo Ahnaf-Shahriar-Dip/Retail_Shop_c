@@ -361,6 +361,47 @@
 
 
 
+
+.product-table-container {
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-table th,
+.product-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dddddd;
+}
+
+.product-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.product-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -592,6 +633,76 @@
 
 
 
+<div id="below2" >
+
+    <section class="section_home_page_1">
+        <h1 style="font-size: 28px; color: #063469; text-align: center; font-weight: bold; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">Product List Low Stock Alert of Max 5 Product</h1>
+
+        <div class="product-table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Product Quantity</th>
+                    </tr>
+                </thead>
+
+
+
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.product_name }}</td>
+                        <td>{{ product.product_quantity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+
+            </table>
+        </div>
+    </section>
+    
+</div>
+
+
+
+
+
+<div id="below2" >
+
+    <section class="section_home_page_1">
+        <h1 style="font-size: 28px; color: #8f2222; text-align: center; font-weight: bold; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">Top 5 Due List</h1>
+
+        <div class="product-table-container">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Total Due</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customer_dues %}
+                    <tr>
+                        <td>{{ customer.customer_name }}</td>
+                        <td>{{ customer.total_due }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+</div>
+
+
+
+
+
+
+
+
 
 
 
@@ -624,6 +735,22 @@ document.getElementById('below2').addEventListener('mouseleave', function() {
     this.style.transform = 'scale(1)'; // Revert back to original scale
     this.style.backgroundColor = ''; // Reset background color
 });
+
+
+
+document.getElementById('below3').addEventListener('mouseenter', function() {
+    // Apply animation or any other effect
+    this.style.transition = 'transform 0.9s ease'; // Reapply smooth transition
+    this.style.backgroundColor = '#fd7e14'; // Change background color on hover
+    this.style.transform = 'scale(0.9)'; // Scale the div
+});
+
+document.getElementById('below3').addEventListener('mouseleave', function() {
+    // Revert back to original state
+    this.style.transform = 'scale(1)'; // Revert back to original scale
+    this.style.backgroundColor = ''; // Reset background color
+});
+
 
 
 
