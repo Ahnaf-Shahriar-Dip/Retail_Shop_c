@@ -67,7 +67,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
-     path('login_page_user/', login_page_user, name='login_page_user'),
+    path('login_page_user/', login_page_user, name='login_page_user'),
 
 
     path('cart_logic/', cart_logic, name='cart_logic'),
